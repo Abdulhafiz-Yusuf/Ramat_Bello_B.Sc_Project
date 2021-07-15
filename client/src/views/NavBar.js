@@ -23,40 +23,40 @@ const NavBar = (props) => {
                 color="success"
                 light expand="md">
                 <NavbarBrand to="/" className='font-weight-bold'>
-                    <img src={logo}
+                    <img src={logo} alt='logo' />
                 </NavbarBrand>
                 <NavbarToggler onClick={toggle} />
-                    <Collapse isOpen={isOpen} navbar>
-                        <Nav className="mr-auto" navbar>
-                            <ul className="nav">
-                                <li className="nav-item">
-                                    <Button color='success'>
-                                        <Link className="nav-link active text-light font-weight-bold" to="/">Home</Link>
-                                    </Button>
-                                </li>
-                                <li className="nav-item">
-                                    <Button color='success '>
-                                        <Link className="nav-link active text-light font-weight-bold" to="/med-center">Medical Center</Link>
-                                    </Button>
-                                </li>
-                                <li className="nav-item">
-                                    <Button color='success'>
-                                        <Link className="nav-link active text-light font-weight-bold" to="/:userId/form">Find a Donor</Link>
-                                    </Button>
-                                </li>
+                <Collapse isOpen={isOpen} navbar>
+                    <Nav className="mr-auto" navbar>
+                        <ul className="nav">
+                            <li className="nav-item">
+                                <Button color='success'>
+                                    <Link className="nav-link active text-light font-weight-bold" to="/">Home</Link>
+                                </Button>
+                            </li>
+                            <li className="nav-item">
+                                <Button color='success '>
+                                    <Link className="nav-link active text-light font-weight-bold" to="/med-center">Medical Center</Link>
+                                </Button>
+                            </li>
+                            <li className="nav-item">
+                                <Button color='success'>
+                                    <Link className="nav-link active text-light font-weight-bold" to="/:userId/form">Find a Donor</Link>
+                                </Button>
+                            </li>
 
-                                <li className="nav-item">
-                                    <Button color='success '>
-                                        <Link className="nav-link active text-light font-weight-bold" to='/testPage'>Testing Page</Link>
-                                    </Button>
-                                </li>
-                            </ul>
-                        </Nav>
-                        {!isAuthenticated ? <LoginButton /> :
-                            <LogoutButton />
-                        }
+                            <li className="nav-item">
+                                <Button color='success '>
+                                    <Link className="nav-link active text-light font-weight-bold" to='/testPage'>Testing Page</Link>
+                                </Button>
+                            </li>
+                        </ul>
+                    </Nav>
+                    {!isAuthenticated ? <LoginButton /> :
+                        <LogoutButton />
+                    }
 
-                    </Collapse>
+                </Collapse>
 
             </Navbar>
         </div >
