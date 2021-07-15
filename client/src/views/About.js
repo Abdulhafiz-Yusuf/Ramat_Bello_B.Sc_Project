@@ -4,7 +4,7 @@ const MedCenter = () => {
     return (
         <div className='container mt-5'>
             <div style={{ height: '100px' }}></div>
-            <h2>Medical center profile page</h2>
+            <h2 className='text-success'>About page</h2>
         </div>
     )
 }
