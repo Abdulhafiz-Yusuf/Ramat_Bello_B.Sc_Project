@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Card, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { NaijaStates, trueorfalse, NaijaLGA, bloodGroup } from '../../data'
-import { useDispatch } from "react-redux";
+//import { useDispatch } from "react-redux";
 import { completeRegistration } from '../../appStore/_actions/userAction'
+import { globaltore } from '../../ContextAPI/globalStore'
 
 
 /*==========================
@@ -11,7 +12,9 @@ REGISTRATION COMPLETION PAGE
 
 export default function RegCompletion(props) {
 
-    const dispatch = useDispatch();
+    const { state, dispatch } = useContext(globaltore)
+
+
     const [profile, setProfile] = useState({
         email: props.email,
         email_verified: props.email_verified,

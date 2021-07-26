@@ -9,13 +9,13 @@ const firebaseConfig = {
   // messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   // appId: process.env.REACT_APP_FIREBASE_APP_ID,
   // measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-  apiKey: "AIzaSyByfc_A8BAy-PIQ3KKTo8yn2RyLE7Hxx-I",
-  authDomain: "afmucresultmgtsystem.firebaseapp.com",
-  projectId: "afmucresultmgtsystem",
-  storageBucket: "afmucresultmgtsystem.appspot.com",
-  messagingSenderId: "183884605093",
-  appId: "1:183884605093:web:824e3f31a4ad802e0fcf4c",
-  measurementId: "G-3T80NR9BP1"
+  apiKey: "AIzaSyBTWyRNXy59V6PdMl2wjP8HoNi5ZEy30Vo",
+  authDomain: "ramatbelloproject.firebaseapp.com",
+  projectId: "ramatbelloproject",
+  storageBucket: "ramatbelloproject.appspot.com",
+  messagingSenderId: "605803988469",
+  appId: "1:605803988469:web:a4a4bf2cf24e815a928cbc",
+  measurementId: "G-2BSEDBR6KF"
 
 
 };

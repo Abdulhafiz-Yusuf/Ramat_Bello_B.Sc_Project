@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Table, Card, Button } from 'reactstrap';
-import { useDispatch, useSelector } from 'react-redux';
+//import { useDispatch, useSelector } from 'react-redux';
 import { addBooking, fetchBloodbyId } from '../appStore/_actions/BloodBankAction';
 import { viewPageAction } from '../appStore/_actions/userAction';
 //import { useAuth0 } from "@auth0/auth0-react";
@@ -16,8 +16,8 @@ TASK
     3.  Display bcDetailPage Data in tables
     */
 
-    let history = useHistory();
-    const dispatch = useDispatch()
+    // let history = useHistory();
+    // const dispatch = useDispatch()
     const bgId = props.match.params.bgId;
     // const stateUser = useSelector(state => state.UserReducer.user);
     // const booking = useSelector(state => state.BloodBankReducer.booking);
@@ -27,32 +27,34 @@ TASK
         users_id: 1,
         email: 'talk2abdulhafiz@gmail.com'
     })
-    useEffect(() => {
-        dispatch(fetchBloodbyId(bgId))
-    }, [dispatch, bgId])
+    // useEffect(() => {
+    //     dispatch(fetchBloodbyId(bgId))
+    // }, [dispatch, bgId])
 
-    const bcDetail = useSelector(state => state.BloodBankReducer.bcDetail);
-    const bgDetail = useSelector(state => state.BloodBankReducer.bgDetail);
+    const bcDetail = 'sdfkdls'
+    // useSelector(state => state.BloodBankReducer.bcDetail);
+    const bgDetail = 'dsfd'
+    // useSelector(state => state.BloodBankReducer.bgDetail);
 
 
     const bookingHandler = (e) => {
-        const id = e.target.id;
-        console.log({ bcDetail: bcDetail[id], user: user, bgDetail: bgDetail[id] })
-        if (user) {
-            dispatch(addBooking(user.users_id, bcDetail[id], bgDetail[id]))
-                .then(response => {
-                    if (response.payload) {
-                        dispatch(viewPageAction('booking'))
-                        history.push('/testPage')
-                        alert('Booked Successfully')
+        // const id = e.target.id;
+        // console.log({ bcDetail: bcDetail[id], user: user, bgDetail: bgDetail[id] })
+        // if (user) {
+        //     dispatch(addBooking(user.users_id, bcDetail[id], bgDetail[id]))
+        //         .then(response => {
+        //             if (response.payload) {
+        //                 dispatch(viewPageAction('booking'))
+        //                 history.push('/testPage')
+        //                 alert('Booked Successfully')
 
-                    }
-                }
-                )
-        }
-        else {
-            //      loginWithRedirect()
-        }
+        //             }
+        //         }
+        //         )
+        // }
+        // else {
+        //     //      loginWithRedirect()
+        // }
     }
     return (
         <div className=' container mt-5 mb-5' >

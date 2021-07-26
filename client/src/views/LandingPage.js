@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import CardList from '../components/CardList'
 import { Table, CardTitle, CardText } from 'reactstrap'
-import { useDispatch } from "react-redux";
+//import { useDispatch } from "react-redux";
 import { fetchBlood, } from '../appStore/_actions/BloodBankAction'
 import Loading from '../components/Loading';
 import Carousel from '../components/Carousel'
 
 const LandingPage = () => {
     const [bgData, setBgData] = useState([])
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(fetchBlood)
-            .then(response => {
-                if (response.payload.bg) {
-                    console.log(response.payload.bg)
-                    setBgData(response.payload.bg)
-                }
-                else { console.log(response.payload) }
-            })
+    // useEffect(() => {
+    //     dispatch(fetchBlood)
+    //         .then(response => {
+    //             if (response.payload.bg) {
+    //                 console.log(response.payload.bg)
+    //                 setBgData(response.payload.bg)
+    //             }
+    //             else { console.log(response.payload) }
+    //         })
 
-    }, [dispatch])
+    // }, [dispatch])
 
     return (
 

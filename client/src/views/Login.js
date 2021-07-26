@@ -3,7 +3,7 @@ import { Card, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { globaltore } from '../ContextAPI/globalStore';
 // import { dbServices } from '../../services/services';
 import { Link } from 'react-router-dom'
-import LoadScreen from './LoadScreen'
+import LoadScreen from '../components/LoadScreen'
 import { login } from '../ContextAPI/actions/UserActions';
 
 
@@ -15,7 +15,7 @@ export default function Login() {
     const [error, setError] = useState(false)
     const [Loading, setLoading] = useState(false)
     const [profile, setProfile] = React.useState({
-        username: '',
+        email: '',
         password: '',
     })
 
@@ -75,7 +75,7 @@ export default function Login() {
                 <Form >
                     <FormGroup >
                         <Label for="username" className='text-success font-weight-bold'>Email</Label>
-                        <Input type="email" name="email" value={profile.username} onChange={handleChange} placeholder="username" />
+                        <Input type="email" name="email" value={profile.username} onChange={handleChange} placeholder="email" />
                     </FormGroup>
                     <FormGroup>
                         <Label for="password" className='text-success font-weight-bold'>password</Label>

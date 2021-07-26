@@ -6,8 +6,8 @@ import App from "./App";
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 //REDUX
-import { Provider } from 'react-redux';
-import Store from './appStore/Store'
+//import { Provider } from 'react-redu';
+import ContextProvider from './ContextAPI/globalStore'
 
 //AUTH0
 import { Auth0Provider } from "@auth0/auth0-react";
@@ -21,8 +21,8 @@ ReactDOM.render(
     //redirectUri={window.location.origin}
     audience={'http://naijabbms.herokuapp.com/'}
   >
-    <Provider store={Store} >
+    <ContextProvider  >
       <App />
-    </Provider>
+    </ContextProvider>
   </Auth0Provider>,
   document.getElementById("root"));

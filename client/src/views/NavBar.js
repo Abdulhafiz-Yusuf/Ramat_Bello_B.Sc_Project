@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Button } from 'reactstrap';
-import LoginButton from '../components/Login';
+import LoginButton from './Login';
 import logo from '../assets/logo.png'
 import coat from '../assets/coat.jpg'
 const NavBar = (props) => {
 
     // const { isAuthenticated } = useAuth0()
-
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);

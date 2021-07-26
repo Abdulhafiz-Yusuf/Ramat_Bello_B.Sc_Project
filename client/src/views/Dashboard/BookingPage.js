@@ -1,9 +1,13 @@
 import React from 'react'
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import { Table, Card, Button } from 'reactstrap'
 import Loading from '../../components/Loading'
+
+
+
 function BookingPage() {
-    const booking = useSelector(state => state.BloodBankReducer.booking);
+    const booking = 'booking'
+    // useSelector(state => state.BloodBankReducer.booking);
 
     return (
 

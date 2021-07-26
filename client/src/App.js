@@ -1,7 +1,7 @@
 //DEPENDENCIES
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useAuth0 } from '@auth0/auth0-react'
+
 import { Card } from 'reactstrap';
 //PAGES
 import LandingPage from './views/LandingPage';
@@ -15,7 +15,7 @@ import Footer from './views/Footer';
 //DASHBOARD
 import UserDashBoard from './views/Dashboard/UserDashBoard';
 
-import Login from './components/Login';
+import Login from './views/Login';
 
 
 /*=====
@@ -45,10 +45,10 @@ export default function App() {
       <NavBar />
       <Switch>
         <Route path="/" exact component={LandingPage} />
-        <Route path="/blood_details/:bgId" component={BloodDetailPage} />
+        {/* <Route path="/blood_details/:bgId" component={BloodDetailPage} /> */}
         <Route path="/login" component={Login} />
         <Route path="/med-center" component={MedCenter} />
-        <Route path="/callback" component={UserDashBoard} />
+        <Route path="/dashboard" component={UserDashBoard} />
         <Route path="/testPage" component={UserDashBoard} />
       </Switch>
       <Footer />

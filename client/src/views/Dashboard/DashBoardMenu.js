@@ -1,10 +1,16 @@
-import React from 'react'
-import { useDispatch } from "react-redux";
+import React, { useContext } from 'react'
+//import { useDispatch } from "react-redux";
 import { Button, Card } from 'reactstrap';
 import { viewPageAction } from '../../appStore/_actions/userAction'
 import me from '../../assets/me.jpg'
+import { globaltore } from '../../ContextAPI/globalStore'
+
+
+
 function DashBoardMenu({ user }) {
-    const dispatch = useDispatch();
+
+    // const dispatch = useDispatch();
+    const { state, dispatch } = useContext(globaltore)
     return (
         <div className='d-flex flex-column w-25 border '>
             <Card className='text-danger  w-75 border d-flex justify-content-center align-items-center m-1 align-self-center'>

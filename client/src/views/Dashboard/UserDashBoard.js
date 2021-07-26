@@ -1,7 +1,7 @@
 // src/views/profile.js
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import { useAuth0 } from "@auth0/auth0-react";
-import { useSelector, useDispatch } from "react-redux";
+//import { useSelector, useDispatch } from "react-redux";
 import { checkifUserExist } from '../../appStore/_actions/userAction'
 import RegCompletion from "./RegCompletion";
 import Profile from "./Profile";
@@ -10,7 +10,7 @@ import PaymentPage from "./PaymentPage";
 import DashBoardMenu from "./DashBoardMenu";
 import Loading from '../../components/Loading.js'
 import { readBooking } from "../../appStore/_actions/BloodBankAction";
-
+import { globaltore } from '../../ContextAPI/globalStore'
 
 /*
 =========================
@@ -34,13 +34,17 @@ import { readBooking } from "../../appStore/_actions/BloodBankAction";
                       */
 export default function UserDashBoard() {
 
-    const stateViewPage = useSelector(state => state.UserReducer.ViewPage);
-    const stateUser = useSelector(state => state.UserReducer.user);
-    const stateUserExist = useSelector(state => state.UserReducer.UserExist);
+    // const stateViewPage = useSelector(state => state.UserReducer.ViewPage);
+    // const stateUser = useSelector(state => state.UserReducer.user);
+    // const stateUserExist = useSelector(state => state.UserReducer.UserExist);
 
     const [user, setUser] = useState({ users_Id: 1, email: 'talk2abdulhafiz@gmail.com', })
 
-    const dispatch = useDispatch();
+    const { state, dispatch } = useContext(globaltore)
+    const stateViewPage = state.ViewPage
+    const stateUser = state.UserPage
+    const stateUserExist = state.UserExist
+
 
     useEffect(() => {
         if (user) {

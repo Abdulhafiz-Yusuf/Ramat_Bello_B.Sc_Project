@@ -29,19 +29,21 @@ export const login = (dispatch, email, password, setError, setLoading, navigatio
                         type: 'GET_CURRENT_USER',
                         payload: user
                     })
-                    if (user.fullName === 'admin') {
-                        navigation.reset({
-                            index: 1,
-                            routes: [{ name: 'Home' }, { name: 'Admin' }],
-                        })
+                    window.location = '/dashboard'
 
-                    }
-                    else {
-                        navigation.reset({
-                            index: 1,
-                            routes: [{ name: 'Home' }, { name: 'Ordering' }],
-                        })
-                    }
+                    // // if (user.fullName === 'admin') {
+                    // //     navigation.reset({
+                    // //         index: 1,
+                    // //         routes: [{ name: 'Home' }, { name: 'Admin' }],
+                    // //     })
+
+                    // // }
+                    // else {
+                    // navigation.reset({
+                    //     index: 1,
+                    //     routes: [{ name: 'Home' }, { name: 'Ordering' }],
+                    // })
+                    // }
                 })
                 .catch(error => {
                     setError('Login Failed. Please try again.')
