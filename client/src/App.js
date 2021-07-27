@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Card } from 'reactstrap';
 //PAGES
 import LandingPage from './views/LandingPage';
-import BloodDetailPage from './views/BloodDetailPage';
+
 import MedCenter from './views/About';
 
 //PAGE SECTIONS
@@ -45,7 +45,7 @@ export default function App() {
       <NavBar />
       <Switch>
         <Route path="/" exact component={LandingPage} />
-        {/* <Route path="/blood_details/:bgId" component={BloodDetailPage} /> */}
+
         <Route path="/login" component={Login} />
         <Route path="/med-center" component={MedCenter} />
         <Route path="/dashboard" component={UserDashBoard} />
