@@ -1,5 +1,5 @@
 // define types
-import { LOGIN, SIGNUP, GET_CURRENT_USER, FETCH_RESULT_DATA, ERROR, } from './types'
+import { LOGIN, VIEWPAGE, SIGNUP, GET_CURRENT_USER, FETCH_RESULT_DATA, ERROR, } from './types'
 
 
 import { initialState } from './globalStore'
@@ -8,7 +8,6 @@ import { initialState } from './globalStore'
 
 export default function rootReducer(state = initialState, action) {
 	switch (action.type) {
-
 		//USER REDUCER
 		case LOGIN:
 			return action.payload.user
@@ -22,7 +21,8 @@ export default function rootReducer(state = initialState, action) {
 		case FETCH_RESULT_DATA:
 			return { ...state, result: action.payload }
 
-
+		case VIEWPAGE:
+			return { ...state, ViewPage: action.payload }
 		case ERROR:
 			return { ...state, error: action.payload }
 

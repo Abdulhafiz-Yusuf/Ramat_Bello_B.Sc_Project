@@ -2,14 +2,14 @@
 import React, { useContext, useEffect, useState } from "react";
 // import { useAuth0 } from "@auth0/auth0-react";
 //import { useSelector, useDispatch } from "react-redux";
-import { checkifUserExist } from '../../appStore/_actions/userAction'
-import RegCompletion from "./RegCompletion";
 import Profile from "./Profile";
-import BookingPage from "./BookingPage";
-import PaymentPage from "./PaymentPage";
+import RegisterImmate from "./Immate/RegImmate";
+import SearchImmate from "./Immate/SearchImmate";
+import GeneratePass from './Guest/GeneratePass'
+import RegGuest from './Guest/RegGuest'
 import DashBoardMenu from "./DashBoardMenu";
 import Loading from '../../components/Loading.js'
-import { readBooking } from "../../appStore/_actions/BloodBankAction";
+
 import { globaltore } from '../../ContextAPI/globalStore'
 
 /*
@@ -42,45 +42,42 @@ export default function UserDashBoard() {
 
     const { state, dispatch } = useContext(globaltore)
     const stateViewPage = state.ViewPage
-    const stateUser = state.UserPage
+    const stateUser = {
+        uid: 123,
+        username: 'Abdul',
+
+    }
+    //state.UserPage
     const stateUserExist = state.UserExist
-
-
-    useEffect(() => {
-        if (user) {
-            dispatch(checkifUserExist(user))
-                .then(response => {
-                    if (response.payload.userExist) {
-                        dispatch(readBooking(user))
-                            .then(booking => console.log(response.payload))
-                    }
-
-                })
-        }
-    }, [dispatch, user])
-
+    console.log(state)
 
     const displayUserProfile = () => {
         return (< div >
-            <h2 className='text-danger text-center mb-3 font-weight-bold'> <span className='text-uppercase' >
-                {stateUser[0].username}</span> Welcome to 9jaBloodBank
+            <h2 className='text-success text-center mb-3 font-weight-bold'> <span className='text-uppercase' >
+                {stateUser.username}</span> Welcome to 9jaBloodBank
                             </h2>
 
-            <div className='d-flex border border-danger'>
-                <DashBoardMenu user={stateUser[0]} />
-                <div className='d-flex justify-content-center border border-danger flex-grow-1'>
-
-
-                    {/* <DashBoardView user_id={stateUser[0].users_id} user={stateUser[0]} bg={stateUser[0]} /> */}
-                    {stateViewPage === 'booking' ?
+            <div className='d-flex border border-success'>
+                <DashBoardMenu user={stateUser} />
+                <div className='d-flex justify-content-center border border-success flex-grow-1'>
+                    {/* <DashBoardView user_id={stateUser.users_id} user={stateUser} bg={stateUser} /> */}
+                    {stateViewPage === 'regImmate' ?
                         // user & userExist
-                        <BookingPage user_id={stateUser[0].users_id} />
+                        <RegisterImmate user_id={stateUser.users_id} />
                         :
-                        stateViewPage === 'payment'
+                        stateViewPage === 'searchImmate'
                             ?
-                            <PaymentPage user={stateUser[0]} />
+                            <SearchImmate />
                             :
-                            <Profile user={stateUser[0]} bg={stateUser[0]} />
+                            stateViewPage === 'regVisitor'
+                                ?
+                                <RegGuest />
+                                :
+                                stateViewPage === 'generatePass'
+                                    ?
+                                    <GeneratePass />
+                                    :
+                                    <Profile user={stateUser} bg={stateUser} />
                     }
                 </div >
             </div>
@@ -95,15 +92,15 @@ export default function UserDashBoard() {
         <div className='mt-5 container'>
             <div style={{ height: '100px' }}></div>
             {
-                !stateUserExist & stateUser ?
-                    < RegCompletion user={stateUser[0]} />
-                    :
-                    !stateUser ?
+                // !stateUserExist & stateUser ?
+                //     < RegCompletion user={stateUser[0]} />
+                //     :
+                //     // stateUser ?
 
-                        <Loading />
-                        :
-                        stateUser.length > 0 &&
-                        displayUserProfile()
+                //     //     <Loading />
+                //         :
+                // stateUser.length > 0 &&
+                displayUserProfile()
 
 
             }

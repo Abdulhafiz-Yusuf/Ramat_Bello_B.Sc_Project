@@ -5,7 +5,7 @@ import Loading from '../../components/Loading'
 
 
 
-function BookingPage() {
+function RegisterImmate() {
     const booking = 'booking'
     // useSelector(state => state.BloodBankReducer.booking);
 
@@ -56,4 +56,4 @@ function BookingPage() {
     )
 }
 
-export default BookingPage
+export default RegisterImmate

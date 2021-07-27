@@ -12,7 +12,7 @@ export const login = (dispatch, email, password, setError, setLoading, navigatio
             usersRef.doc(uid).get()
                 .then(firestoreDocument => {
                     if (!firestoreDocument.exists) {
-                        setError("User does not exist.Please Signup below")
+                        setError("User does not exist.")
                         setLoading(false)
                         return;
                     }
@@ -97,4 +97,11 @@ export const singUp = (dispatch, fullName, email, password, section, setError, s
 
 
 
+
+export function viewPageAction(page) {
+    return ({
+        type: 'VIEWPAGE',
+        payload: page
+    })
+}
 
