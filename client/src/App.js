@@ -49,7 +49,7 @@ export default function App() {
         <Route path="/login" component={Login} />
         <Route path="/med-center" component={MedCenter} />
         <Route path="/dashboard" component={UserDashBoard} />
-        <Route path="/testPage" component={UserDashBoard} />
+
       </Switch>
       <Footer />
     </Router>
