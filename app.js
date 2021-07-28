@@ -29,22 +29,6 @@ const userRoutes = require('./routes/Users.Route')
 // app.use('/bloodcenter', bloodcenterRoutes)
 app.use('/user', userRoutes)
 app.use('/blood', bloodcenterRoutes)
-app.get('/api/activities', (req, res) => { // route root directory ('/' is this file (app.js))
-
-  services.getAllActivities(req, res);
-});
-
-app.post('/api/activities', (req, res) => {
-  services.addActivityToDB(req, res);
-});
-
-app.get('/api/activities/new', (req, res) => {
-  services.getSingleActivity(req, res);
-});
-
-app.get('/api/activities/delete', (req, res) => {
-  services.deleteAllActivites(req, res);
-});
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client/build/index.html'));
