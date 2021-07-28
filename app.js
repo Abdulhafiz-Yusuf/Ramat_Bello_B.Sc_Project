@@ -46,6 +46,12 @@ app.get('/api/activities/delete', (req, res) => {
   services.deleteAllActivites(req, res);
 });
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+});
+
 app.listen(PORT, () => { // start server and listen on specified port
   console.log(`App is running on ${PORT}`) // confirm server is running and log port to the console
-}) 
+})
+
+
