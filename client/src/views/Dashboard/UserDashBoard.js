@@ -52,36 +52,36 @@ export default function UserDashBoard() {
     console.log(state)
 
     const displayUserProfile = () => {
-        return (< div >
-            <h2 className='text-success text-center mb-3 font-weight-bold'> <span className='text-uppercase' >
-                {stateUser.username}</span> Welcome to 9jaBloodBank
+        return (
+
+            < div >
+                <h2 className='text-success mt-5 text-center mb-3 font-weight-bold'> <span className='text-uppercase' >
+                    {stateUser.username}</span> Welcome to 9jaBloodBank
                             </h2>
 
-            <div className='d-flex border border-success'>
-                <DashBoardMenu user={stateUser} />
-                <div className='d-flex justify-content-center border border-success flex-grow-1'>
-                    {/* <DashBoardView user_id={stateUser.users_id} user={stateUser} bg={stateUser} /> */}
-                    {stateViewPage === 'regImmate' ?
-                        // user & userExist
-                        <RegisterImmate user_id={stateUser.users_id} />
-                        :
-                        stateViewPage === 'searchImmate'
-                            ?
-                            <SearchImmate />
+                <div className='d-flex border border-success'>
+                    <DashBoardMenu user={stateUser} />
+                    <div className='d-flex justify-content-center border border-success flex-grow-1'>
+                        {/* <DashBoardView user_id={stateUser.users_id} user={stateUser} bg={stateUser} /> */}
+                        {stateViewPage === 'regImmate' ?
+                            // user & userExist
+                            <RegisterImmate user_id={stateUser.users_id} />
                             :
-                            stateViewPage === 'regVisitor'
-                                ?
-                                <RegGuest />
+                            stateViewPage === 'generatePass' ?
+                                <GeneratePass />
                                 :
-                                stateViewPage === 'generatePass'
+                                stateViewPage === 'regVisitor'
                                     ?
-                                    <GeneratePass />
+                                    <RegGuest />
                                     :
-                                    <Profile user={stateUser} bg={stateUser} />
-                    }
-                </div >
-            </div>
-        </div >
+
+
+                                    <SearchImmate />
+
+                        }
+                    </div >
+                </div>
+            </div >
         )
     }
 
