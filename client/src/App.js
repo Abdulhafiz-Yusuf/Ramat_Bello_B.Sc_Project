@@ -39,22 +39,20 @@ export default function App() {
   //     </Card>
   //   </div >
 
-  return (<>
+  return (
 
     <Router>
       <NavBar />
       <Switch>
         <Route path="/" exact component={LandingPage} />
-
-        <Route path="/login" component={Login} />
-        <Route path="/med-center" component={MedCenter} />
-        <Route path="/dashboard" component={UserDashBoard} />
-
+        <Route path="/login" exact component={Login} />
+        <Route path="/med-center" exact component={MedCenter} />
+        <Route path="/dashboard" exact component={UserDashBoard} />
       </Switch>
       <Footer />
     </Router>
 
-  </>
+
 
   );
 }

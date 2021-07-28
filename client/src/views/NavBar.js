@@ -54,7 +54,11 @@ const NavBar = (props) => {
                                             <Link className="nav-link active text-light font-weight-bold" to="/login">Login</Link>
                                         </Button>
                                 }
-
+                                <li className="nav-item">
+                                    <Button color='success '>
+                                        <Link className="nav-link active text-light font-weight-bold" to="/dashboard">Dashboard</Link>
+                                    </Button>
+                                </li>
                             </li>
                             {/* 
                             <li className="nav-item">
