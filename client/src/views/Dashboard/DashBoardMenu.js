@@ -3,14 +3,14 @@ import React, { useContext } from 'react'
 import { Button, Card, Label } from 'reactstrap';
 import { viewPageAction } from '../../ContextAPI/actions/UserActions'
 import me from '../../assets/me.jpg'
-import { globaltore } from '../../ContextAPI/globalStore'
+import { globalStore } from '../../ContextAPI/globalStore'
 
 
 
 function DashBoardMenu({ user }) {
 
     // const dispatch = useDispatch();
-    const { state, dispatch } = useContext(globaltore)
+    const { state, dispatch } = useContext(globalStore)
     console.log(state)
     return (
         <div className='d-flex flex-column w-25 border '>

@@ -9,20 +9,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 //import { Provider } from 'react-redu';
 import ContextProvider from './ContextAPI/globalStore'
 
-//AUTH0
-import { Auth0Provider } from "@auth0/auth0-react";
+
 
 
 ReactDOM.render(
-  <Auth0Provider
-    domain={process.env.REACT_APP_AUTH0_DOMAIN}
-    clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
-    redirectUri={process.env.REACT_APP_REDUIRECT_URI}
-    //redirectUri={window.location.origin}
-    audience={'http://naijabbms.herokuapp.com/'}
-  >
-    <ContextProvider  >
-      <App />
-    </ContextProvider>
-  </Auth0Provider>,
-  document.getElementById("root"));
+  <ContextProvider><App /></ContextProvider>, document.getElementById("root")
+);

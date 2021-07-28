@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Card, Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import { globaltore } from '../ContextAPI/globalStore';
+import { globalStore } from '../ContextAPI/globalStore';
 // import { dbServices } from '../../services/services';
 import { Link } from 'react-router-dom'
 import LoadScreen from '../components/LoadScreen'
@@ -9,8 +9,8 @@ import { login } from '../ContextAPI/actions/UserActions';
 
 export default function Login() {
 
-
-    const { state, dispatch } = useContext(globaltore)
+    const [loginStatus, setLoginStatus] = useState(false)
+    const { state, dispatch } = useContext(globalStore)
     console.log(state)
     const [error, setError] = useState(false)
     const [Loading, setLoading] = useState(false)
@@ -34,7 +34,7 @@ export default function Login() {
 
     }
 
-    const onSubmit = (e) => {
+    const onLogIn = (e) => {
         e.preventDefault()
 
         if (profile.username === '' || profile.password === '') {
@@ -57,11 +57,13 @@ export default function Login() {
         }
         else {
             return (
+
                 <div className='d-flex justify-content-lg-center '>
                     <Button className='text-light font-weight-bold'
                         color='success'
-                        onClick={onSubmit}>Submit</Button>
+                        onClick={onLogIn}>Submit</Button>
                 </div>
+
             )
         }
     }

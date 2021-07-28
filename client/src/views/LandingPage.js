@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import CardList from '../components/CardList'
 import { Table, CardTitle, CardText } from 'reactstrap'
 //import { useDispatch } from "react-redux";
-import { fetchBlood, } from '../appStore/_actions/BloodBankAction'
+
 import Loading from '../components/Loading';
 import Carousel from '../components/Carousel'
 

@@ -10,7 +10,7 @@ import RegGuest from './Guest/RegGuest'
 import DashBoardMenu from "./DashBoardMenu";
 import Loading from '../../components/Loading.js'
 
-import { globaltore } from '../../ContextAPI/globalStore'
+import { globalStore } from '../../ContextAPI/globalStore'
 
 /*
 =========================
@@ -40,7 +40,7 @@ export default function UserDashBoard() {
 
     const [user, setUser] = useState({ users_Id: 1, email: 'talk2abdulhafiz@gmail.com', })
 
-    const { state, dispatch } = useContext(globaltore)
+    const { state, dispatch } = useContext(globalStore)
     const stateViewPage = state.ViewPage
     const stateUser = {
         uid: 123,

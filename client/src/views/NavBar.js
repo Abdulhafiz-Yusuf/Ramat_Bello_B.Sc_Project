@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Button } from 'reactstrap';
 import LoginButton from './Login';
 import logo from '../assets/logo.png'
 import coat from '../assets/coat.jpg'
+
+import { globalStore } from '../ContextAPI/globalStore';
+
+
+
+
 const NavBar = (props) => {
 
-    // const { isAuthenticated } = useAuth0()
+
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
 
+    const { state, dispatch } = useContext(globalStore)
+    console.log(state)
     return (
         <div className='bg-success container fixed-top rounded mb-5 '
         // style={{ backgroundImage: "url(/blood.jpeg)", backgroundRepeat: 'no-repeat', height: '300px' }}
@@ -36,9 +44,17 @@ const NavBar = (props) => {
                                 </Button>
                             </li>
                             <li className="nav-item">
-                                <Button color='success'>
-                                    <Link className="nav-link active text-light font-weight-bold" to="/login">Login</Link>
-                                </Button>
+                                {
+                                    state.user ?
+                                        < Button color='success'>
+                                            <Link className="nav-link active text-light font-weight-bold" to="/">Log Out</Link>
+                                        </Button>
+                                        :
+                                        <Button color='success'>
+                                            <Link className="nav-link active text-light font-weight-bold" to="/login">Login</Link>
+                                        </Button>
+                                }
+
                             </li>
                             {/* 
                             <li className="nav-item">
