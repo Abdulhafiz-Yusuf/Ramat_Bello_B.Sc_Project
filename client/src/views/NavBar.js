@@ -29,9 +29,12 @@ const NavBar = (props) => {
                 <NavbarBrand to="/" className='font-weight-bold'>
                     <img style={{ height: '120px', width: '120px' }} src={logo} alt='logo' />
                 </NavbarBrand>
+
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
-                    <Nav className="mr-auto" navbar>
+                    <Nav className="d-flex flex-column mr-auto" navbar>
+                        <h3 className='mt-3 text-light font-weight-bold'>  THE NIGERIAN CORRECTIONAL SERVICE (NCoS)</h3>
+
                         <ul className="nav">
                             <li className="nav-item">
                                 <Button color='success'>
@@ -54,11 +57,7 @@ const NavBar = (props) => {
                                             <Link className="nav-link active text-light font-weight-bold" to="/login">Login</Link>
                                         </Button>
                                 }
-                                <li className="nav-item">
-                                    <Button color='success '>
-                                        <Link className="nav-link active text-light font-weight-bold" to="/dashboard">Dashboard</Link>
-                                    </Button>
-                                </li>
+
                             </li>
                             {/* 
                             <li className="nav-item">
