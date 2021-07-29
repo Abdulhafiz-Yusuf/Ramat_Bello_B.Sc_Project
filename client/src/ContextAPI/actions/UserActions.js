@@ -29,7 +29,7 @@ export const login = (dispatch, email, password, setError, setLoading, navigatio
                         type: 'GET_CURRENT_USER',
                         payload: user
                     })
-
+                    setLoading(false)
                     window.location = '/dashboard'
 
                     // // if (user.fullName === 'admin') {

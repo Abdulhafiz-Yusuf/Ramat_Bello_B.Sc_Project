@@ -51,17 +51,17 @@ export default function UserDashBoard() {
     const stateUserExist = state.UserExist
     console.log(state)
 
-    const displayUserProfile = () => {
-        return (
-
+    return (
+        <div className='mt-5 container'>
+            <div style={{ height: '100px' }}></div>
             < div >
-                <h2 className='text-success mt-5 text-center mb-3 font-weight-bold'> <span className='text-uppercase' >
-                    {stateUser.username}</span> Welcome to 9jaBloodBank
-                            </h2>
+                {/* <h2 className='text-success mt-5 text-center mb-3 font-weight-bold'> <span className='text-uppercase' >
+                    {stateUser.username}</span> Welcome to Nigerian 
+                            </h2> */}
 
-                <div className='d-flex border border-success'>
+                <div className='d-flex  border-success mt-5'>
                     <DashBoardMenu user={stateUser} />
-                    <div className='d-flex justify-content-center border border-success flex-grow-1'>
+                    <div className='d-flex justify-content-center  border-success flex-grow-1'>
                         {/* <DashBoardView user_id={stateUser.users_id} user={stateUser} bg={stateUser} /> */}
                         {stateViewPage === 'regImmate' ?
                             // user & userExist
@@ -82,28 +82,6 @@ export default function UserDashBoard() {
                     </div >
                 </div>
             </div >
-        )
-    }
-
-
-
-
-    return (
-        <div className='mt-5 container'>
-            <div style={{ height: '100px' }}></div>
-            {
-                // !stateUserExist & stateUser ?
-                //     < RegCompletion user={stateUser[0]} />
-                //     :
-                //     // stateUser ?
-
-                //     //     <Loading />
-                //         :
-                // stateUser.length > 0 &&
-                displayUserProfile()
-
-
-            }
 
         </div>
     )

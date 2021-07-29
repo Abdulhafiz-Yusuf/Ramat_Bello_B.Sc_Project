@@ -45,6 +45,7 @@ export default function Login() {
         else {
             //authenticate Admin
             //dbServices.authenticateAdmin(profile)
+            setLoading(true)
             login(dispatch, profile.email, profile.password, setError, setLoading)
 
         }
