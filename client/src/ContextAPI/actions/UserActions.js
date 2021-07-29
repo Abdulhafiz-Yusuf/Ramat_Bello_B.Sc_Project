@@ -1,10 +1,9 @@
 import Firebase, { db } from '../../services/firebase/FirebaseConfig'
 
 //Firestore Refs
-const adminRef = db.collection('user').doc('admin')
 const usersRef = db.collection('user')
 
-export const login = (dispatch, email, password, setError, setLoading, navigation) => {
+export const login = (dispatch, email, password, setError, setLoading, history) => {
     setError('')
     Firebase.auth().signInWithEmailAndPassword(email, password)
         .then((response) => {
@@ -17,34 +16,12 @@ export const login = (dispatch, email, password, setError, setLoading, navigatio
                         return;
                     }
                     const user = firestoreDocument.data()
-
-                    /*console.log(user)
-                     === { 
-                         "email": "admin@admin.com",
-                         "fullName": "admin",
-                         "id": "jWB4mPqXQDVdSZRzNeRUriGa8A92" 
-                        }
-                    */
                     dispatch({
                         type: 'GET_CURRENT_USER',
                         payload: user
                     })
                     setLoading(false)
-                    window.location = '/dashboard'
-
-                    // // if (user.fullName === 'admin') {
-                    // //     navigation.reset({
-                    // //         index: 1,
-                    // //         routes: [{ name: 'Home' }, { name: 'Admin' }],
-                    // //     })
-
-                    // // }
-                    // else {
-                    // navigation.reset({
-                    //     index: 1,
-                    //     routes: [{ name: 'Home' }, { name: 'Ordering' }],
-                    // })
-                    // }
+                    history.push('/dashboard')
                 })
                 .catch(error => {
                     setError('Login Failed. Please try again.')
@@ -53,11 +30,26 @@ export const login = (dispatch, email, password, setError, setLoading, navigatio
                 });
         })
         .catch(error => {
-            //  setError('Login Failed. Please turn ON your internet connection.')
             setError(error.message)
             setLoading(false)
             console.log(error)
         })
+}
+
+
+export const onLogOut = (dispatch, history) => {
+
+    Firebase.auth().signOut().then(() => {
+        dispatch({
+            type: 'GET_CURRENT_USER',
+            payload: null
+        })
+        history.push('/')
+    }).catch((error) => {
+
+
+    });
+
 }
 
 export const singUp = (dispatch, fullName, email, password, section, setError, setLoading) => {

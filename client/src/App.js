@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import { Card } from 'reactstrap';
+
 //PAGES
 import LandingPage from './views/LandingPage';
 

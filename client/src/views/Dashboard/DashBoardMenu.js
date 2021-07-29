@@ -1,8 +1,7 @@
 import React, { useContext } from 'react'
 //import { useDispatch } from "react-redux";
-import { Button, Card, Label } from 'reactstrap';
+import { Button, Label } from 'reactstrap';
 import { viewPageAction } from '../../ContextAPI/actions/UserActions'
-import me from '../../assets/me.jpg'
 import { globalStore } from '../../ContextAPI/globalStore'
 
 

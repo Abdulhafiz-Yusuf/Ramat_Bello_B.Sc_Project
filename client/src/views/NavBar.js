@@ -1,28 +1,16 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Button } from 'reactstrap';
-import LoginButton from './Login';
 import logo from '../assets/logo.png'
 import coat from '../assets/coat.jpg'
-import { layoutGenerator } from 'react-break';
+
 import { globalStore } from '../ContextAPI/globalStore';
 import useWindowSize from '../components/utility/useWindowSize'
+import { onLogOut } from '../ContextAPI/actions/UserActions';
 
 
-const layout = layoutGenerator({
-    mobile: 0,
-    phablet: 550,
-    tablet: 768,
-    desktop: 992,
-});
 
-const OnMobile = layout.is('mobile');
-const OnAtLeastTablet = layout.isAtLeast('tablet');
-const OnAtMostPhablet = layout.isAtMost('phablet');
-const OnDesktop = layout.is('desktop');
-
-
-const NavBar = (props) => {
+export default function NavBar(props) {
     const { width } = useWindowSize();
 
     const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +19,14 @@ const NavBar = (props) => {
 
     const { state, dispatch } = useContext(globalStore)
     console.log(state)
+
+
+    const history = useHistory()
+
+
+
+
+
     return (
 
 
@@ -66,8 +62,11 @@ const NavBar = (props) => {
                                     <li className="nav-item">
                                         {
                                             state.user ?
-                                                < Button color='success'>
-                                                    <Link className="nav-link active text-light font-weight-bold" to="/">Log Out</Link>
+                                                <Button
+                                                    onClick={() => { onLogOut(dispatch, history) }}
+                                                    color='success'
+                                                >
+                                                    <Link className="nav-link active text-light font-weight-bold" >Logout</Link>
                                                 </Button>
                                                 :
                                                 <Button color='success'>
@@ -106,8 +105,11 @@ const NavBar = (props) => {
                                     <li className="nav-item">
                                         {
                                             state.user ?
-                                                < Button color='success'>
-                                                    <Link className="nav-link active text-light font-weight-bold" to="/">Log Out</Link>
+                                                <Button
+                                                    onClick={() => { onLogOut(dispatch, history) }}
+                                                    color='success'
+                                                >
+                                                    <Link className="nav-link active text-light font-weight-bold" >Logout</Link>
                                                 </Button>
                                                 :
                                                 <Button color='success'>
@@ -142,4 +144,3 @@ const NavBar = (props) => {
     );
 }
 
-export default NavBar;

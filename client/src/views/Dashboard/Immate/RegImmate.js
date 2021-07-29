@@ -1,7 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React, {
+    useState,
+    // useContext
+} from 'react'
 import { Card, Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import { } from '../../../ContextAPI/actions/UserActions'
-import { globalStore } from '../../../ContextAPI/globalStore'
+// import { } from '../../../ContextAPI/actions/UserActions'
+// import { globalStore } from '../../../ContextAPI/globalStore'
 //DATEPICKER AND ITS CSS
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -12,7 +15,7 @@ REGISTRATION COMPLETION PAGE
 
 export default function RegCompletion(props) {
 
-    const { state, dispatch } = useContext(globalStore)
+    // const { state, dispatch } = useContext(globalStore)
 
 
     const [profile, setProfile] = useState({

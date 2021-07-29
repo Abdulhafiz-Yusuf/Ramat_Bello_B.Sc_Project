@@ -1,29 +1,27 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Card, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { globalStore } from '../ContextAPI/globalStore';
 // import { dbServices } from '../../services/services';
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import LoadScreen from '../components/LoadScreen'
 import { login } from '../ContextAPI/actions/UserActions';
 
 
 export default function Login() {
+    const history = useHistory()
 
-    const [loginStatus, setLoginStatus] = useState(false)
     const { state, dispatch } = useContext(globalStore)
+
     console.log(state)
+
     const [error, setError] = useState(false)
     const [Loading, setLoading] = useState(false)
+
     const [profile, setProfile] = React.useState({
         email: '',
         password: '',
     })
 
-
-    // useEffect(() => {
-    //     //initial DB with Admin Credentials
-    //     dbServices.initalizeAdminCredentials()
-    // }, [])
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -46,7 +44,7 @@ export default function Login() {
             //authenticate Admin
             //dbServices.authenticateAdmin(profile)
             setLoading(true)
-            login(dispatch, profile.email, profile.password, setError, setLoading)
+            login(dispatch, profile.email, profile.password, setError, setLoading, history)
 
         }
     }

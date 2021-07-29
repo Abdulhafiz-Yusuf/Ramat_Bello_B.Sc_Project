@@ -1,14 +1,14 @@
 // src/views/profile.js
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, } from "react";
 // import { useAuth0 } from "@auth0/auth0-react";
 //import { useSelector, useDispatch } from "react-redux";
-import Profile from "./Profile";
+
 import RegisterImmate from "./Immate/RegImmate";
 import SearchImmate from "./Immate/SearchImmate";
 import GeneratePass from './Guest/GeneratePass'
 import RegGuest from './Guest/RegGuest'
 import DashBoardMenu from "./DashBoardMenu";
-import Loading from '../../components/Loading.js'
+
 
 import { globalStore } from '../../ContextAPI/globalStore'
 
@@ -38,9 +38,9 @@ export default function UserDashBoard() {
     // const stateUser = useSelector(state => state.UserReducer.user);
     // const stateUserExist = useSelector(state => state.UserReducer.UserExist);
 
-    const [user, setUser] = useState({ users_Id: 1, email: 'talk2abdulhafiz@gmail.com', })
 
-    const { state, dispatch } = useContext(globalStore)
+
+    const { state, } = useContext(globalStore)
     const stateViewPage = state.ViewPage
     const stateUser = {
         uid: 123,
@@ -48,7 +48,7 @@ export default function UserDashBoard() {
 
     }
     //state.UserPage
-    const stateUserExist = state.UserExist
+
     console.log(state)
 
     return (
