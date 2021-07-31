@@ -13,7 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 REGISTRATION COMPLETION PAGE
 =============================*/
 
-export default function RegCompletion(props) {
+export default function RegInmate(props) {
 
     // const { state, dispatch } = useContext(globalStore)
 

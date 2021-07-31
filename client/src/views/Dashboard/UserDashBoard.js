@@ -3,7 +3,7 @@ import React, { useContext, } from "react";
 // import { useAuth0 } from "@auth0/auth0-react";
 //import { useSelector, useDispatch } from "react-redux";
 
-import RegisterImmate from "./Immate/RegImmate";
+import RegisterInmate from "./Immate/RegInmate";
 import SearchImmate from "./Immate/SearchImmate";
 import GeneratePass from './Guest/GeneratePass'
 import RegGuest from './Guest/RegGuest'
@@ -65,7 +65,7 @@ export default function UserDashBoard() {
                         {/* <DashBoardView user_id={stateUser.users_id} user={stateUser} bg={stateUser} /> */}
                         {stateViewPage === 'regImmate' ?
                             // user & userExist
-                            <RegisterImmate user_id={stateUser.users_id} />
+                            <RegisterInmate user_id={stateUser.users_id} />
                             :
                             stateViewPage === 'generatePass' ?
                                 <GeneratePass />
