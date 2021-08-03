@@ -1,4 +1,6 @@
-import React, { useContext, useState } from 'react';
+import Firebase from '../services/firebase/FirebaseConfig'
+
+import React, { useContext, useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Button } from 'reactstrap';
 import logo from '../assets/logo.png'
@@ -10,7 +12,21 @@ import { onLogOut } from '../ContextAPI/actions/UserActions';
 
 
 
+
+
 export default function NavBar(props) {
+
+
+    const [user, setuser] = useState()
+
+
+
+    useEffect(() => {
+        const user = Firebase.auth().currentUser;
+        setuser(user)
+    }, [])
+    console.log(Firebase.auth().currentUser)
+
     const { width } = useWindowSize();
 
     const [isOpen, setIsOpen] = useState(false);
@@ -104,7 +120,7 @@ export default function NavBar(props) {
                                     </li>
                                     <li className="nav-item">
                                         {
-                                            state.user ?
+                                            user ?
                                                 <Button
                                                     onClick={() => { onLogOut(dispatch, history) }}
                                                     color='success'

@@ -1,12 +1,8 @@
 import React, {
     useState,
-    // useContext
+
 } from 'react'
 import { Card, Button, Form, FormGroup, Label, Input } from 'reactstrap';
-// import { } from '../../../ContextAPI/actions/UserActions'
-// import { globalStore } from '../../../ContextAPI/globalStore'
-//DATEPICKER AND ITS CSS
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 /*==========================

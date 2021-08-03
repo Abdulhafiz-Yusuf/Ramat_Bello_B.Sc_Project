@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
-//import { useDispatch } from "react-redux";
-import { Button, Label } from 'reactstrap';
+import { Button } from 'reactstrap';
 import { viewPageAction } from '../../ContextAPI/actions/UserActions'
 import { globalStore } from '../../ContextAPI/globalStore'
 

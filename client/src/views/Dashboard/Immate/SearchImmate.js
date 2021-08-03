@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react'
-import { Table, Card, Label, Button, Form, FormGroup, Input } from 'reactstrap';
+import { Table, Label, Button, Form, FormGroup, Input } from 'reactstrap';
 import { globalStore } from '../../../ContextAPI/globalStore'
 import { viewPageAction } from '../../../ContextAPI/actions/UserActions'
 function SearchImmate() {
     const [searchId, setsearchId] = useState()
     const [SearchType, setSearchType] = useState('1')
 
-    const { state, dispatch } = useContext(globalStore)
+    const { dispatch } = useContext(globalStore)
     const handleChange = (e) => {
         const value = e.target.value
         setsearchId(value)
