@@ -88,7 +88,21 @@ export const singUp = (dispatch, fullName, email, password, section, setError, s
 
 
 
+export function fetchCurrentUser(dispatch, setuser) {
+    Firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            console.log(user)
+            setuser(user)
+            dispatch({
+                type: 'GET_CURRENT_USER',
+                payload: user
+            })
 
+        } else {
+            console.log('no user logged in')
+        }
+    });
+}
 
 
 export function viewPageAction(page) {
@@ -97,4 +111,5 @@ export function viewPageAction(page) {
         payload: page
     })
 }
+
 

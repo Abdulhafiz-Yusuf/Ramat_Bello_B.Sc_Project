@@ -1,4 +1,4 @@
-import Firebase from '../services/firebase/FirebaseConfig'
+
 
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom'
@@ -8,7 +8,7 @@ import coat from '../assets/coat.jpg'
 
 import { globalStore } from '../ContextAPI/globalStore';
 import useWindowSize from '../components/utility/useWindowSize'
-import { onLogOut } from '../ContextAPI/actions/UserActions';
+import { fetchCurrentUser, onLogOut } from '../ContextAPI/actions/UserActions';
 
 
 
@@ -16,16 +16,10 @@ import { onLogOut } from '../ContextAPI/actions/UserActions';
 
 export default function NavBar(props) {
 
-
     const [user, setuser] = useState()
 
-
-
-    useEffect(() => {
-        const user = Firebase.auth().currentUser;
-        setuser(user)
-    }, [])
-    console.log(Firebase.auth().currentUser)
+    const { state, dispatch } = useContext(globalStore)
+    console.log(state)
 
     const { width } = useWindowSize();
 
@@ -33,11 +27,21 @@ export default function NavBar(props) {
 
     const toggle = () => setIsOpen(!isOpen);
 
-    const { state, dispatch } = useContext(globalStore)
-    console.log(state)
+
 
 
     const history = useHistory()
+
+    useEffect(() => {
+        // const user = Firebase.auth().currentUser;
+        // setuser(user)
+        fetchCurrentUser(dispatch, setuser)
+
+    }, [dispatch])
+    console.log(user)
+    // 
+
+
 
 
 
@@ -134,12 +138,7 @@ export default function NavBar(props) {
                                         }
 
                                     </li>
-                                    {/* 
-                            <li className="nav-item">
-                                <Button color='success '>
-                                    <Link className="nav-link active text-light font-weight-bold" to='/testPage'>Testing Page</Link>
-                                </Button>
-                            </li>  */}
+
                                 </ul>
                             </Nav>
 
