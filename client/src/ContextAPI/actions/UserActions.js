@@ -37,14 +37,15 @@ export const login = (dispatch, email, password, setError, setLoading, history) 
 }
 
 
-export const onLogOut = (dispatch, history) => {
-
+export const onLogOut = (dispatch, history, setisLoading) => {
+    // setisLoading(true)
     Firebase.auth().signOut().then(() => {
         dispatch({
             type: 'GET_CURRENT_USER',
             payload: null
         })
-        history.push('/')
+        window.location = '/'
+        // setisLoading(false)
     }).catch((error) => {
 
 

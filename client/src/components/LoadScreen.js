@@ -1,13 +1,14 @@
 import React from 'react'
-import { Label, Spinner } from 'reactstrap';
+import { Alert, Label, Modal, Spinner } from 'reactstrap';
 
-function LoadScreen({ size, text }) {
+function LoadScreen({ size, text, height }) {
     return (
-        <div style={styles.container} >
+        <div
+            style={{ height: height }}
+            className='container d-flex flex-column justify-content-center align-items-center' >
             <Label style={{ fontWeight: 'bold', }}>{text ? text : 'Loading ....'}
             </Label>
             <Spinner size={size || "large"} color="primary" />
-
         </div>
 
     );
@@ -15,13 +16,5 @@ function LoadScreen({ size, text }) {
 
 
 
-const styles = {
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
 
-}
 export default LoadScreen;

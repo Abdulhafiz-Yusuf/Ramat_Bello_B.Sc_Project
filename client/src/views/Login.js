@@ -52,7 +52,7 @@ export default function Login() {
 
     const renderButton = () => {
         if (Loading) {
-            return (<LoadScreen size='small' text='Loging in....' />)
+            return (<LoadScreen size='small' text='Loging in....' height='100px' />)
         }
         else {
             return (

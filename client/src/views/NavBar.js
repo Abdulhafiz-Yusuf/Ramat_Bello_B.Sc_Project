@@ -14,9 +14,10 @@ import { fetchCurrentUser, onLogOut } from '../ContextAPI/actions/UserActions';
 
 
 
-export default function NavBar(props) {
 
-    const [user, setuser] = useState()
+export default function NavBar({ user, setisLoading }) {
+
+
 
     const { state, dispatch } = useContext(globalStore)
     console.log(state)
@@ -29,17 +30,13 @@ export default function NavBar(props) {
 
 
 
-
     const history = useHistory()
 
-    useEffect(() => {
-        // const user = Firebase.auth().currentUser;
-        // setuser(user)
-        fetchCurrentUser(dispatch, setuser)
 
-    }, [dispatch])
+
+
     console.log(user)
-    // 
+
 
 
 
@@ -81,9 +78,9 @@ export default function NavBar(props) {
                                     </li>
                                     <li className="nav-item">
                                         {
-                                            state.user ?
+                                            user ?
                                                 <Button
-                                                    onClick={() => { onLogOut(dispatch, history) }}
+                                                    onClick={() => { onLogOut(dispatch, history, setisLoading) }}
                                                     color='success'
                                                 >
                                                     <Link className="nav-link active text-light font-weight-bold" >Logout</Link>
@@ -126,7 +123,7 @@ export default function NavBar(props) {
                                         {
                                             user ?
                                                 <Button
-                                                    onClick={() => { onLogOut(dispatch, history) }}
+                                                    onClick={() => { onLogOut(dispatch, history, setisLoading) }}
                                                     color='success'
                                                 >
                                                     <Link className="nav-link active text-light font-weight-bold" >Logout</Link>
