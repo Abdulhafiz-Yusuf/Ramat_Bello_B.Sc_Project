@@ -2,9 +2,11 @@ import React, { createContext, useReducer } from 'react';
 import userReducer from './rootReducer';
 
 export const initialState = {
-    user: null,
+    inmate: null,
     result: null,
-    error: null
+    error: null,
+    ViewPage: null,
+
 }
 
 export const globalStore = createContext(initialState);

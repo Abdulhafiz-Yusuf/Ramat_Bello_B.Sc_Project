@@ -23,15 +23,16 @@ function DashBoardMenu({ user }) {
                  <hr />
             </Label> */}
 
-            <Button className='bg-success m-2 text-light' onClick={() => dispatch(viewPageAction('regImmate'))}>
-                Register Inmate
-            </Button>
-
 
             <Button className='bg-success m-2 text-light' onClick={() => dispatch(viewPageAction('searchImmate'))}>
                 Search Inmate
             </Button>
 
+
+
+            <Button className='bg-success m-2 text-light' onClick={() => dispatch(viewPageAction('regImmate'))}>
+                Register Inmate
+            </Button>
 
 
 
@@ -42,10 +43,10 @@ function DashBoardMenu({ user }) {
             <Button className='bg-success m-2 text-light' onClick={() => dispatch(viewPageAction('regVisitor'))}>
                 Register Guest
              </Button>
-
+*/}
             <Button className='bg-success m-2 text-light' onClick={() => dispatch(viewPageAction('generatePass'))}>
                 Generate Pass
-             </Button> */}
+             </Button>
         </div>
     )
 }

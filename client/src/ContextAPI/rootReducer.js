@@ -22,7 +22,7 @@ export default function rootReducer(state = initialState, action) {
 			return { ...state, result: action.payload }
 
 		case VIEWPAGE:
-			return { ...state, ViewPage: action.payload }
+			return { ...state, ViewPage: action.payload.page, inmate: action.payload.inmate }
 		case ERROR:
 			return { ...state, error: action.payload }
 

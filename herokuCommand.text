@@ -1,0 +1,26 @@
+TO CREATE AN APP: 
+heroku creat appName
+
+TO ADD POSTGRESQL ADDONS:
+heroku addons: create heroku-postgresql:hobby-dev -a appName
+
+
+TO ACCESS/CONNECT TO THE HEROKU POSTGRESQL ADDON TERMINAL:
+heroku pg:psql -a appName
+
+
+
+TO DISPLAY A FILE CONTENT IN CLI: 
+cat fileName 
+
+
+TO MAKE USE OF THE SCHEMA FILE CONTENT TO CREATE TABLES DIRECTLY IN THE HEROKU POSTGRESS ADDONS:
+cat schema.sql | heroku pg:psql -a appName
+
+cat ./models/schema.sql | heroku pg:psql -a myncs
+
+
+POSTGRESQL CLI COMMANDS:
+\dt
+\q
+drop table tableName;

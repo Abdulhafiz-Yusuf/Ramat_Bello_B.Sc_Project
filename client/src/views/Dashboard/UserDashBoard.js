@@ -11,6 +11,7 @@ import DashBoardMenu from "./DashBoardMenu";
 
 
 import { globalStore } from '../../ContextAPI/globalStore'
+import Profile from "./Profile";
 
 /*
 =========================
@@ -74,9 +75,11 @@ export default function UserDashBoard() {
                                     ?
                                     <RegGuest />
                                     :
-
-
-                                    <SearchImmate />
+                                    stateViewPage === 'profile'
+                                        ?
+                                        <Profile />
+                                        :
+                                        <SearchImmate />
 
                         }
                     </div >

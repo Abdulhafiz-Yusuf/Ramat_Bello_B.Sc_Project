@@ -93,18 +93,22 @@ function SearchImmate() {
                     {[1].map((inmate, index) => {
                         return (
                             < tr key={index}>
-                                <td><img src={inmate.img} alt='Inmate Pic' style={{ height: '50px', width: '50px' }} /></td>
+                                <td>
+                                    <img src={inmate.img} alt='Inmate Pic'
+                                        className='rounded-circle border'
+                                        style={{ height: '100px', width: '100px' }} />
+                                </td>
                                 <td>{inmate.loclga} </td>
                                 <td>{inmate.qty}</td>
                                 <td >
                                     <Button
-                                        id={index}
-                                        onClick={viewHandler}
+
+                                        onClick={() => dispatch(viewPageAction('profile', inmate))}
                                         className='ml-2 text-light bg-success font-weight-bold'>View </Button>
-                                    <Button
-                                        id={index}
+                                    {/* <Button
+
                                         onClick={() => dispatch(viewPageAction('generatePass'))}
-                                        className='ml-2 text-light bg-success font-weight-bold'>Generate Pass</Button>
+                                        className='ml-2 text-light bg-success font-weight-bold'>Generate Pass</Button> */}
 
                                 </td>
                             </tr>
