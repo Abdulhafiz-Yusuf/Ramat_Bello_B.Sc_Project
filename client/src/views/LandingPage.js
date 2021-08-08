@@ -12,7 +12,7 @@ const LandingPage = () => {
     return (
 
         <div className=' container mt-5 mb-5'>
-            <div style={{ height: '120px' }}></div>
+            <div style={{ height: '150px' }}></div>
 
 
             {/* <Carousel /> */}
