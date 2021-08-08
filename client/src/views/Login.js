@@ -23,20 +23,22 @@ export default function Login() {
     })
 
 
-    const handleChange = (e) => {
+    function handleChange(e) {
         const value = e.target.value;
-        setProfile({
-            ...profile,
-            [e.target.name]: value
-        })
+        setProfile(
+            {
+                ...profile,
+                [e.target.name]: value
+            }
+        )
 
     }
 
     const onLogIn = (e) => {
         e.preventDefault()
 
-        if (profile.username === '' || profile.password === '') {
-            alert('username or password cannot be empty')
+        if (profile.password === '' || profile.email === '') {
+            alert('Email or password cannot be empty')
         }
 
 
@@ -52,7 +54,9 @@ export default function Login() {
 
     const renderButton = () => {
         if (Loading) {
-            return (<LoadScreen size='small' text='Loging in....' height='100px' />)
+            return (
+                <LoadScreen size='small' text='Loging in....' height='100px' />
+            )
         }
         else {
             return (
@@ -76,7 +80,7 @@ export default function Login() {
                 <Form >
                     <FormGroup >
                         <Label for="username" className='text-success font-weight-bold'>Email</Label>
-                        <Input type="email" name="email" value={profile.username} onChange={handleChange} placeholder="email" />
+                        <Input type="email" name="email" value={profile.email} onChange={handleChange} placeholder="email" />
                     </FormGroup>
                     <FormGroup>
                         <Label for="password" className='text-success font-weight-bold'>password</Label>
@@ -84,14 +88,7 @@ export default function Login() {
                     </FormGroup>
                 </Form>
 
-                <Label style={{
-                    color: "red",
-                    fontWeight: "bold",
-                    fontSize: 16,
-                    textAlign: 'center',
-                    fontStyle: 'italic',
-                    margin: 2
-                }}>
+                <Label className='text-danger font-weight-bold m-2 font-italic text-center '>
                     {error}
                 </Label>
                 {/* <h6 className='mt-3 mb-3 text-danger'>Forgot Password?

@@ -25,16 +25,16 @@ else {
 
 
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build/index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'client/build/index.html'));
+// });
 
 //ROUTES
-const bloodcenterRoutes = require('./routes/BloodCenter.Route')
-const userRoutes = require('./routes/Users.Route')
-// app.use('/bloodcenter', bloodcenterRoutes)
-app.use('/user', userRoutes)
-app.use('/blood', bloodcenterRoutes)
+const Inmate = require('./routes/Inmate.Route')
+// const userRoutes = require('./routes/Users.Route')
+app.use('/inmate', Inmate)
+// app.use('/user', userRoutes)
+
 
 app.listen(PORT, () => { // start server and listen on specified port
   console.log(`App is running on ${PORT}`) // confirm server is running and log port to the console

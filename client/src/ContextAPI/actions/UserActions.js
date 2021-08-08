@@ -3,7 +3,7 @@ import Firebase, { db } from '../../services/firebase/FirebaseConfig'
 //Firestore Refs
 const usersRef = db.collection('user')
 
-export const login = (dispatch, email, password, setError, setLoading, history) => {
+export function login(dispatch, email, password, setError, setLoading, history) {
     setError('')
     Firebase.auth().signInWithEmailAndPassword(email, password)
         .then((response) => {

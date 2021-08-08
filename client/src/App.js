@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 //PAGES
 import LandingPage from './views/LandingPage';
 
-import MedCenter from './views/About';
+import About from './views/About';
 
 //PAGE SECTIONS
 import NavBar from './views/NavBar';
@@ -25,6 +25,7 @@ import LoadScreen from './components/LoadScreen';
 APP.JS
 =======*/
 export default function App() {
+
   const [isLoading, setisLoading] = useState(false)
   const [user, setuser] = useState()
 
@@ -74,7 +75,7 @@ export default function App() {
         <Switch>
           <Route path="/" exact component={LandingPage} />
           <Route path="/login" exact component={Login} />
-          <Route path="/med-center" exact component={MedCenter} />
+          <Route path="/about" exact component={About} />
           <Route path="/dashboard" exact component={UserDashBoard} />
         </Switch>
         <Footer />

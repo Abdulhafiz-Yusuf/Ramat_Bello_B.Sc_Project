@@ -8,7 +8,7 @@ const router = express.Router()
 
 const UserController = require('../controllers/User.Controller');
 
-router.post('/checkIfUserExistInDB', UserController.checkIfUserExistIndb)
-router.post('/regCompletion', UserController.regCompletion)
-router.post('/makeADonor', UserController.makeADonor)
+// router.post('/checkIfUserExistInDB', UserController.checkIfUserExistIndb)
+// router.post('/regCompletion', UserController.regCompletion)
+// router.post('/makeADonor', UserController.makeADonor)
 module.exports = router
