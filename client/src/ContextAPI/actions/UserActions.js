@@ -107,10 +107,12 @@ export function fetchCurrentUser(dispatch, setuser) {
 
 
 export function viewPageAction(page, inmate) {
-    return ({
-        type: 'VIEWPAGE',
-        payload: { page, inmate }
-    })
+    return (
+        {
+            type: 'VIEWPAGE',
+            payload: { page, inmate }
+        }
+    )
 }
 
 

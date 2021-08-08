@@ -13,5 +13,7 @@ import ContextProvider from './ContextAPI/globalStore'
 
 
 ReactDOM.render(
-  <ContextProvider><App /></ContextProvider>, document.getElementById("root")
+  <ContextProvider>
+    <App />
+  </ContextProvider>, document.getElementById("root")
 );

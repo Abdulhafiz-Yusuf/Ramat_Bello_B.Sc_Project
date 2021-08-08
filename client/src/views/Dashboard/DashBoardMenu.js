@@ -40,12 +40,13 @@ function DashBoardMenu({ user }) {
                 Guest
                  <hr />
             </Label>
-            <Button className='bg-success m-2 text-light' onClick={() => dispatch(viewPageAction('regVisitor'))}>
-                Register Guest
-             </Button>
+            
 */}
             <Button className='bg-success m-2 text-light' onClick={() => dispatch(viewPageAction('generatePass'))}>
                 Generate Pass
+             </Button>
+            <Button className='bg-success m-2 text-light' onClick={() => dispatch(viewPageAction('regVisitor'))}>
+                Visit History
              </Button>
         </div>
     )

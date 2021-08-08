@@ -41,7 +41,7 @@ export default function UserDashBoard() {
 
 
 
-    const { state, } = useContext(globalStore)
+    const { state, dispatch } = useContext(globalStore)
     const stateViewPage = state.ViewPage
     const stateUser = {
         uid: 123,

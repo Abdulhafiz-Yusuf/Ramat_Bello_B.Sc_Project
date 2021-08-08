@@ -3,7 +3,6 @@ import userReducer from './rootReducer';
 
 export const initialState = {
     inmate: null,
-    result: null,
     error: null,
     ViewPage: null,
 
