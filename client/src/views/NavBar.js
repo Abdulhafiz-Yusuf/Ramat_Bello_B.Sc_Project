@@ -25,14 +25,14 @@ export default function NavBar({ user, setisLoading }) {
     console.log(user)
 
     return (
-        <div className='bg-succes container fixed-top rounded mb-5 '
+        <div className='bg-success container fixed-top rounded mb-5 '
         // style={{ backgroundImage: "url(/blood.jpeg)", backgroundRepeat: 'no-repeat', height: '300px' }}
         >
             {
                 width < 500 ?
 
                     <Navbar
-                        color="succes"
+                        color="success"
                         light expand="md">
                         <NavbarBrand to="/" className='font-weight-bold'>
                             <img style={{ height: '50px', width: '50px' }} src={logo} alt='logo' />
@@ -45,12 +45,12 @@ export default function NavBar({ user, setisLoading }) {
 
                                 <ul className="nav">
                                     <li className="nav-item">
-                                        <Button color='succes'>
+                                        <Button color='success'>
                                             <Link className="nav-link active text-light font-weight-bold" to="/">Home</Link>
                                         </Button>
                                     </li>
                                     <li className="nav-item">
-                                        <Button color='succes '>
+                                        <Button color='success '>
                                             <Link className="nav-link active text-light font-weight-bold" to="/about">About</Link>
                                         </Button>
                                     </li>
@@ -59,12 +59,12 @@ export default function NavBar({ user, setisLoading }) {
                                             user ?
                                                 <Button
                                                     onClick={() => { onLogOut(dispatch, history, setisLoading) }}
-                                                    color='succes'
+                                                    color='success'
                                                 >
                                                     <Link className="nav-link active text-light font-weight-bold" >Logout</Link>
                                                 </Button>
                                                 :
-                                                <Button color='succes'>
+                                                <Button color='success'>
                                                     <Link className="nav-link active text-light font-weight-bold" to="/login">Login</Link>
                                                 </Button>
                                         }
@@ -75,7 +75,7 @@ export default function NavBar({ user, setisLoading }) {
                     </Navbar>
                     :
                     <Navbar
-                        color="succes"
+                        color="success"
                         light expand="md">
                         <NavbarBrand to="/" className='font-weight-bold'>
                             <img style={{ height: '120px', width: '120px' }} src={logo} alt='logo' />
@@ -88,12 +88,12 @@ export default function NavBar({ user, setisLoading }) {
 
                                 <ul className="nav">
                                     <li className="nav-item">
-                                        <Button color='succes'>
+                                        <Button color='success'>
                                             <Link className="nav-link active text-light font-weight-bold" to="/">Home</Link>
                                         </Button>
                                     </li>
                                     <li className="nav-item">
-                                        <Button color='succes '>
+                                        <Button color='success '>
                                             <Link className="nav-link active text-light font-weight-bold" to="/about">About</Link>
                                         </Button>
                                     </li>
@@ -102,12 +102,12 @@ export default function NavBar({ user, setisLoading }) {
                                             user ?
                                                 <Button
                                                     onClick={() => { onLogOut(dispatch, history, setisLoading) }}
-                                                    color='succes'
+                                                    color='success'
                                                 >
                                                     <Link className="nav-link active text-light font-weight-bold" >Logout</Link>
                                                 </Button>
                                                 :
-                                                <Button color='succes'>
+                                                <Button color='success'>
                                                     <Link className="nav-link active text-light font-weight-bold" to="/login">Login</Link>
                                                 </Button>
                                         }
