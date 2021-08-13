@@ -1,4 +1,4 @@
 {
     "USER_SERVER": "/user",
-    "BLOODCENTER_SERVER": "/blood"
+    "INMATE_SERVER": "/inmate"
 }

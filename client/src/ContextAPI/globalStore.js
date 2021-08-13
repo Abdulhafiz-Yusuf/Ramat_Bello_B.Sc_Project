@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import userReducer from './rootReducer';
 
 export const initialState = {
-    inmate: null,
+    inmate: {},
     error: null,
     ViewPage: null,
 

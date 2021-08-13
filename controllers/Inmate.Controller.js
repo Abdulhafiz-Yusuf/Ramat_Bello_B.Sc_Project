@@ -46,17 +46,18 @@ exports.readBloodGroupByID = (req, res, next) => {
         })
 }
 
-exports.searchInameByName = async (req, res, next) => {
-    // const user_id = req.query.user_id
-    const name = req.body.name
-    db.query(`SELECT FROM inmate
-                  WHERE f_name =$1 OR l_name=$1 OR m_name=$1`, [name])
+exports.searchInmateByNameorCode = async (req, res, next) => {
+    const searchText = req.body.searchText
+    console.log(searchText)
+
+    db.query(`SELECT * FROM inmate
+                  WHERE f_name =$1 OR l_name=$1 OR m_name=$1 OR code=$1`, [searchText])
         .then(q_res => {
             res.status(200).send({
                 success: true,
-                user: q_res.rows //USER FULL INFO 
+                inmate: q_res.rows //USER FULL INFO 
             })
-            console.log({ fullUserInfo: q_res.rows })
+            console.log({ inmate: q_res.rows })
         })
         .catch(q_err => {
             console.log({ Error: q_err.message })

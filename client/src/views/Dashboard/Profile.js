@@ -1,24 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Card, Button } from 'reactstrap'
-import { viewPageAction } from '../../ContextAPI/actions/UserActions';
+import { viewPageAction } from '../../ContextAPI/actions/inmateActions';
 import { globalStore } from '../../ContextAPI/globalStore';
 
 
 
 function Profile() {
 
-    const { dispatch, state } = useContext(globalStore)
-    const user = state.inmate
-    let bg;
-
-
-    // useEffect(() => {
-
-
-    // }, [])
+    const { state, dispatch  } = useContext(globalStore)
+    const inmate = state.inmate
+    const dob = inmate
 
     return (
-        <div className='w-75 d-flex flex-row justify-content-center align-items-center' >
+        <div className='d-flex flex-row justify-content-center align-items-center' style={{width:'85vh'}} >
+           
+           
             <Card className='w-100 d-flex mt-2 flex-column justify-content-center align-items-center'>
                 <img
                     // src={inmate.img}
@@ -28,38 +24,71 @@ function Profile() {
                 />
 
                 <div className='d-flex w-100 text-success border-bottom'>
-                    <div className='w-25'><p className='ml-5'>ID:  </p> </div>
-                    <div> <p className='text-uppercase font-weight-bold'>{user.f_name}</p></div>
+                    <div className='w-25'><p className='ml-3'>Code:  </p> </div>
+                    <div> <p className='text-uppercase font-weight-bold ml-3'>{inmate.code}</p></div>
                     <hr />
                 </div>
                 <div className='d-flex w-100 text-success border-bottom'>
-                    <div className='w-25'><p className='ml-5'> First Name:  </p> </div>
-                    <div> <p className='text-uppercase font-weight-bold'>{user.f_name}</p></div>
+                    <div className='w-25'><p className='ml-3'> First Name:  </p> </div>
+                    <div> <p className='text-uppercase font-weight-bold ml-3 ml'>{inmate.f_name}</p></div>
                     <hr />
                 </div>
                 <div className='d-flex w-100 text-success border-bottom'>
-                    <div className='w-25 '><p className='ml-5'> Last Name:  </p> </div>
-                    <div> <p className='text-uppercase font-weight-bold '>{user.l_name}</p></div>
+                    <div className='w-25 '><p className='ml-3'> Middle t Name:  </p> </div>
+                    <div> <p className='text-uppercase font-weight-bold ml-3 '>{inmate.m_name}</p></div>
                     <hr />
                 </div>
 
                 <div className='d-flex w-100 text-success border-bottom'>
-                    <div className='w-25 '><p className='ml-5'> Phone:  </p>  </div>
-                    <div> <p className='text-uppercase font-weight-bold '>+234 {user.phone}</p> </div>
+                    <div className='w-25 '><p className='ml-3'> Last Name:  </p> </div>
+                    <div> <p className='text-uppercase font-weight-bold ml-3 '>{inmate.l_name}</p></div>
+                    <hr />
                 </div>
-                <div className='d-flex w-100 text-success border-bottom'>
-                    <div className='w-25 '><p className='ml-5'> State of Resident:  </p>  </div>
-                    <div> <p className=' text-uppercase font-weight-bold '>{user.user_loc_state}</p> </div>
-                </div>
-                <div className='d-flex w-100 text-success border-bottom'>
-                    <div className='w-25 '><p className='ml-5'> L.G.A: </p>  </div>
-                    <div> <p className=' text-uppercase font-weight-bold '>{user.loc_lga}</p> </div>
+<div className='d-flex w-100 text-success border-bottom'>
+                    <div className='w-25 '><p className='ml-3'> Gender:  </p> </div>
+                    <div> <p className='text-uppercase font-weight-bold ml-3 '>{inmate.gender}</p></div>
+                    <hr />
                 </div>
 
                 <div className='d-flex w-100 text-success border-bottom'>
-                    <div className='w-25 '><p className='ml-5'> Are you a Donor:  </p>  </div>
-                    <div> <p className='font-weight-bold '>{user.donor}</p> </div>
+                    <div className='w-25 '><p className='ml-3'> Date of Birth:  </p> </div>
+                    <div> <p className='text-uppercase font-weight-bold ml-3 '>{inmate.dob}</p></div>
+                    <hr />
                 </div>
+                <div className='d-flex w-100 text-success border-bottom'>
+                    <div className='w-25 '><p className='ml-3'> Phone:  </p>  </div>
+                    <div> <p className='text-uppercase font-weight-bold ml-3 '>+234 {inmate.phone}</p> </div>
+                </div>
+                <div className='d-flex w-100 text-success border-bottom'>
+                    <div className='w-25 '><p className='ml-3'> Resident Address:  </p>  </div>
+                    <div> <p className=' text-uppercase font-weight-bold ml-3 '>{inmate.haddress}</p> </div>
+                </div>
+                <div className='d-flex w-100 text-success border-bottom'>
+                    <div className='w-25 '><p className='ml-3'> L.G.A: </p>  </div>
+                    <div> <p className=' text-uppercase font-weight-bold ml-3 '>{inmate.ilga}</p> </div>
+                </div>
+
+                <div className='d-flex w-100 text-success border-bottom'>
+                    <div className='w-25 '><p className='ml-3'> State:  </p>  </div>
+                    <div> <p className='text-uppercase font-weight-bold  ml-3 '>{inmate.istate}</p> </div>
+                </div>
+
+                 <div className='d-flex w-100 text-success border-bottom'>
+                    <div className='w-25 '><p className='ml-3'> Nature of Crime:  </p>  </div>
+                    <div> <p className='text-uppercase font-weight-bold  ml-3 '>{inmate.crime}</p> </div>
+                </div>
+                  
+                  <div className='d-flex w-100 text-success border-bottom'>
+                    <div className='w-25 '><p className='ml-3'> Date of Imprisonment:  </p>  </div>
+                    <div> <p className='text-uppercase font-weight-bold  ml-3 '>{inmate.doi}</p> </div>
+                </div>
+
+                 <div className='d-flex w-100 text-success border-bottom'>
+                    <div className='w-25 '><p className='ml-3'> Date of Release:  </p>  </div>
+                    <div> <p className='text-uppercase font-weight-bold  ml-3 '>{inmate.dor.getDate()}</p> </div>
+                </div>
+                
+
 
             </Card >
         </div >

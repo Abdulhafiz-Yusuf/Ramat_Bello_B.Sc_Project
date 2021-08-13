@@ -12,7 +12,7 @@ import { fetchCurrentUser, onLogOut } from '../ContextAPI/actions/UserActions';
 export default function NavBar({ user, setisLoading }) {
 
     const { state, dispatch } = useContext(globalStore)
-    console.log(state)
+
 
     const { width } = useWindowSize();
 
@@ -21,7 +21,7 @@ export default function NavBar({ user, setisLoading }) {
     const toggle = () => setIsOpen(!isOpen);
 
     const history = useHistory()
-    console.log(user)
+
 
     return (
         <div className='bg-success container fixed-top rounded mb-5 '
@@ -97,14 +97,23 @@ export default function NavBar({ user, setisLoading }) {
                                         </Button>
                                     </li>
                                     <li className="nav-item">
+
+                                    </li>
+                                    <li className="nav-item">
                                         {
                                             user ?
-                                                <Button
-                                                    onClick={() => { onLogOut(dispatch, history, setisLoading) }}
-                                                    color='success'
-                                                >
-                                                    <Link className="nav-link active text-light font-weight-bold" >Logout</Link>
-                                                </Button>
+                                                <>
+                                                    <Button color='success '>
+                                                        <Link className="nav-link active text-light font-weight-bold" to="/dashboard">Dashboard</Link>
+                                                    </Button>
+
+                                                    <Button
+                                                        onClick={() => { onLogOut(dispatch, history, setisLoading) }}
+                                                        color='success'
+                                                    >
+                                                        <Link className="nav-link active text-light font-weight-bold" >Logout</Link>
+                                                    </Button>
+                                                </>
                                                 :
                                                 <Button color='success'>
                                                     <Link className="nav-link active text-light font-weight-bold" to="/login">Login</Link>

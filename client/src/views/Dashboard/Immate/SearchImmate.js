@@ -2,30 +2,35 @@ import React, { useState, useContext } from 'react'
 import { Table, Label, Button, Form, FormGroup, Input } from 'reactstrap';
 import { globalStore } from '../../../ContextAPI/globalStore'
 import { viewPageAction } from '../../../ContextAPI/actions/UserActions'
+import { searchInmateByCodeorName } from '../../../ContextAPI/actions/inmateActions';
 function SearchImmate() {
-    const [searchId, setsearchId] = useState()
+    const [searchText, setsearchText] = useState()
     const [SearchType, setSearchType] = useState('1')
 
-    const { dispatch } = useContext(globalStore)
-    const handleChange = (e) => {
-        const value = e.target.value
-        setsearchId(value)
+    const { state, dispatch } = useContext(globalStore)
 
-        console.log(value)
+
+
+
+
+
+    const onSearchTextChange = (e) => {
+        const value = e.target.value
+        setsearchText(value)
     }
 
 
     const onSearch = (e) => {
         e.preventDefault()
-        const dataToSubmit = {
-            searchId: searchId
+        const data = {
+            searchText: searchText
         }
         // dispatch(completeRegistration(dataToSubmit))
-        if (dataToSubmit.searchId === '') {
+        if (data.searchText === '') {
             alert('Field cannot be empty')
         }
         else {
-
+            searchInmateByCodeorName(dispatch, data)
         }
     }
 
@@ -34,8 +39,6 @@ function SearchImmate() {
         setSearchType(value)
         console.log(value)
     }
-
-
 
     const viewHandler = () => {
 
@@ -48,7 +51,7 @@ function SearchImmate() {
                 <FormGroup tag="fieldset" className='d-flex flex-row' >
                     {
                         [
-                            { label: 'Search by ID', key: '1' },
+                            { label: 'Search by Code', key: '1' },
                             { label: 'Search by Name', key: '2' }
 
                         ].map((option, index) => {
@@ -66,10 +69,10 @@ function SearchImmate() {
                 < FormGroup className='mr-3'>
                     <Input
                         type="text"
-                        name="searchId"
-                        value={searchId}
-                        onChange={handleChange}
-                        placeholder={SearchType === '1' ? "Enter Inmate's ID Number " : "Enter Inmate's Name"} />
+                        name="searchText"
+                        value={searchText}
+                        onChange={onSearchTextChange}
+                        placeholder={SearchType === '1' ? "Enter Inmate's Code" : "Enter Inmate's Name"} />
                 </FormGroup>
 
                 <Button color='success'
@@ -77,47 +80,57 @@ function SearchImmate() {
                     className='' >
                     Search</Button>
             </Form >
-
+    {
+        state.inmate.inmate ?
             <Table className='text-success text-center mt-5 w-100' bordered hover striped>
                 <thead>
                     <tr>
 
                         <th>Image</th>
                         <th>Name</th>
-                        <th>ID</th>
+                        <th>Code</th>
                         <th>Actions</th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    {[1].map((inmate, index) => {
-                        return (
-                            < tr key={index}>
-                                <td>
-                                    <img src={inmate.img} alt='Inmate Pic'
-                                        className='rounded-circle border'
-                                        style={{ height: '100px', width: '100px' }} />
-                                </td>
-                                <td>{inmate.loclga} </td>
-                                <td>{inmate.qty}</td>
-                                <td >
-                                    <Button
+                    {
+                         state.inmate.inmate.length !== 0 &&
+                        state.inmate.inmate.map((inmate, index) => {
+                            return (
+                                < tr key={index}>
+                                    <td>
+                                        <img src={inmate.img} alt='Inmate Pic'
+                                            className='rounded-circle border'
+                                            style={{ height: '100px', width: '100px' }} />
+                                    </td>
+                                    <td>{inmate.f_name} {inmate.m_name} {inmate.l_name}</td>
+                                    <td>{inmate.code}</td>
+                                    <td >
+                                        <Button
 
-                                        onClick={() => dispatch(viewPageAction('profile', inmate))}
-                                        className='ml-2 text-light bg-success font-weight-bold'>View </Button>
-                                    {/* <Button
+                                            onClick={() => dispatch(viewPageAction('profile', inmate))}
+                                            className='ml-2 text-light bg-success font-weight-bold'>View 
+                                        </Button>
+                                        {/* <Button
 
                                         onClick={() => dispatch(viewPageAction('generatePass'))}
                                         className='ml-2 text-light bg-success font-weight-bold'>Generate Pass</Button> */}
 
-                                </td>
-                            </tr>
-                        )
-                    })
+                                    </td>
+                                </tr>
+                            )
+                        })
 
                     }
                 </tbody>
             </Table>
+            :
+            <div>
+
+            </div>
+}
+    
         </div >
     )
 }

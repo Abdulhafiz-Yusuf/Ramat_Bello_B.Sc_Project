@@ -13,3 +13,5 @@ export const VIEWPAGE = 'VIEWPAGE'
 
 //ERROR ACTION TYPE
 export const ERROR = 'ERROR'
+
+export const SEARCH_INMATE = 'SEARCH_INMATE'
