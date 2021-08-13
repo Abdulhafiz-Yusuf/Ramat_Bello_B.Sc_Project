@@ -85,7 +85,7 @@ function Profile() {
 
                  <div className='d-flex w-100 text-success border-bottom'>
                     <div className='w-25 '><p className='ml-3'> Date of Release:  </p>  </div>
-                    <div> <p className='text-uppercase font-weight-bold  ml-3 '>{inmate.dor.getDate()}</p> </div>
+                    <div> <p className='text-uppercase font-weight-bold  ml-3 '>{inmate.dor}</p> </div>
                 </div>
                 
 
