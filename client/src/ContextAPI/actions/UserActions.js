@@ -1,4 +1,4 @@
-import Firebase, { db } from '../../services/firebase/FirebaseConfig'
+import Firebase, { db } from '../../services/FirebaseConfig'
 
 //Firestore Refs
 const usersRef = db.collection('user')

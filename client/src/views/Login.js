@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Card, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { globalStore } from '../ContextAPI/globalStore';
-// import { dbServices } from '../../services/services';
 import { useHistory } from 'react-router-dom'
 import LoadScreen from '../components/LoadScreen'
 import { login } from '../ContextAPI/actions/UserActions';

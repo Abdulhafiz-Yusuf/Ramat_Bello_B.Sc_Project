@@ -44,10 +44,10 @@ function DashBoardMenu({ user }) {
 */}
             <Button className='bg-success m-2 text-light' onClick={() => dispatch(viewPageAction('generatePass'))}>
                 Generate Pass
-             </Button>
+            </Button>
             <Button className='bg-success m-2 text-light' onClick={() => dispatch(viewPageAction('regVisitor'))}>
                 Visit History
-             </Button>
+            </Button>
         </div>
     )
 }

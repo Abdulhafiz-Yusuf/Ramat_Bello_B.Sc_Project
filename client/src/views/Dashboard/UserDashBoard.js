@@ -1,15 +1,10 @@
 // src/views/profile.js
 import React, { useContext, } from "react";
-// import { useAuth0 } from "@auth0/auth0-react";
-//import { useSelector, useDispatch } from "react-redux";
-
 import RegisterInmate from "./Immate/RegInmate";
 import SearchImmate from "./Immate/SearchImmate";
 import GeneratePass from './Guest/GeneratePass'
 import RegGuest from './Guest/RegGuest'
 import DashBoardMenu from "./DashBoardMenu";
-
-
 import { globalStore } from '../../ContextAPI/globalStore'
 import Profile from "./Profile";
 

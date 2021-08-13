@@ -11,9 +11,9 @@ const AboutPage = () => {
             <CardTitle className='text-success' tag="h2"> ABOUT NCoS</CardTitle>
             <CardText className='text-justify'>
                 The Nigerian Correctional Service is an arm of the Criminal Justice System domiciled in the Ministry of Interior.<br />
-The Nigerian Correctional Service is a federal phenomenon. i.e. there are no State Correctional Services in the Nigeria. Every Custodial Centre is a Federal Facility.
-The operation of the Service is supervised by the Ministry of Interior and the Civil Defence, Fire, Immigration and Corrections Board.
-                </CardText>
+                The Nigerian Correctional Service is a federal phenomenon. i.e. there are no State Correctional Services in the Nigeria. Every Custodial Centre is a Federal Facility.
+                The operation of the Service is supervised by the Ministry of Interior and the Civil Defence, Fire, Immigration and Corrections Board.
+            </CardText>
 
 
 
@@ -27,7 +27,7 @@ The operation of the Service is supervised by the Ministry of Interior and the C
 
             <CardText className='text-justify'>
                 The Service derives its operational powers from the Nigerian Correctional Act, 2019.
-</CardText>
+            </CardText>
         </div>
     )
 }

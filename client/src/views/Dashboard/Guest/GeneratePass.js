@@ -106,7 +106,7 @@ export default function GeneratePass(props) {
                 <h5 className='text-success text-center font-italic font-weight-bold'>
                     Please generate gate pass by searching for an inmate and providing
                     visitor's information below.
-                    </h5>
+                </h5>
             </div>
             <Card className='container w-100 shadow-lg p-3 mb-5'>
                 <Form className='d-flex flex-column justify-content-start ' >

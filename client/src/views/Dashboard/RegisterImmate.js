@@ -1,5 +1,4 @@
 import React from 'react'
-//import { useSelector } from "react-redux";
 import { Table, Card, Button } from 'reactstrap'
 import Loading from '../../components/Loading'
 

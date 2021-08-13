@@ -16,7 +16,7 @@ import Footer from './views/Footer';
 import UserDashBoard from './views/Dashboard/UserDashBoard';
 
 import Login from './views/Login';
-import Firebase from './services/firebase/FirebaseConfig';
+import Firebase from './services/FirebaseConfig';
 import { Card } from 'reactstrap';
 import LoadScreen from './components/LoadScreen';
 

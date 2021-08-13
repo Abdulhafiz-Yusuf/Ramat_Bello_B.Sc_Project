@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Table, Card, } from 'reactstrap';
-import { useDispatch, useSelector } from "react-redux";
-//import { searchDonor, } from '../appStore/_actions/userAction';
 import Loading from '../components/Loading';
 import SearchBar from '../components/SearchBar';
 
