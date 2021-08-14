@@ -1,13 +1,17 @@
 import React, {
+    useContext,
     useState,
-    // useContext
+
 } from 'react'
 import { Card, Button, Form, FormGroup, Label, Input } from 'reactstrap';
-// import { } from '../../../ContextAPI/actions/UserActions'
-// import { globalStore } from '../../../ContextAPI/globalStore'
+// import { } from '../../../ContextAPI/actions/inmateActions'
+import { globalStore } from '../../../ContextAPI/globalStore'
 //DATEPICKER AND ITS CSS
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { RegisterInmate } from '../../../ContextAPI/actions/inmateActions';
+
+import { NaijaStates, NaijaLGA } from './stateLGAData';
 
 /*==========================
 REGISTRATION COMPLETION PAGE
@@ -15,25 +19,29 @@ REGISTRATION COMPLETION PAGE
 
 export default function RegInmate(props) {
 
-    // const { state, dispatch } = useContext(globalStore)
+    const { dispatch } = useContext(globalStore)
 
 
     const [profile, setProfile] = useState({
         fName: '',
-        lastName: '',
+        lName: '',
         mName: '',
         gender: '',
         phone: '',
         dob: new Date(),
+        inmate_loc_state: 'Abia',
+        loc_lga: NaijaLGA['Abia'][0],
         homeAdd: '',
-        emailAdd: '',
-        nameOfCorrCenter: '',
-        cellCode: '',
-        doi: new Date(), //date of imprisonment
-        dor: new Date(), //date of release
-        natureOfCrime: ''
+        email: '',
+        cCenter: '',
+        code: '',
+        doi: new Date(),
+        dor: new Date(),
+        crime: ''
 
     })
+
+    let LGAs = NaijaLGA[profile.inmate_loc_state]
 
     const handleChange = (e) => {
         const value = e.target.value
@@ -43,23 +51,46 @@ export default function RegInmate(props) {
         })
         console.log(value)
     }
+
+
+
     const onSubmit = (e) => {
         e.preventDefault()
+
         const dataToSubmit = {
-            email: 'me@gmail.com',
-            email_verified: false,
-            username: profile.username,
+            fName: profile.fName,
+            lName: profile.lName,
+            mName: profile.mName,
+            gender: profile.gender,
             phone: profile.phone,
-            user_loc_state: profile.user_loc_state,
+            dob: profile.dob,
+            inmate_loc_state: profile.inmate_loc_state,
             loc_lga: profile.loc_lga,
-            donor: profile.donor,
-            bg: profile.bg
+            homeAdd: profile.homeAdd,
+            email: profile.email,
+            cCenter: profile.cCenter,
+            code: profile.code,
+            doi: profile.doi,
+            dor: profile.dor,
+            crime: profile.crime,
+
         }
         // dispatch(completeRegistration(dataToSubmit))
-        if (dataToSubmit.username === '' || dataToSubmit.phone === '') {
-            alert('Field cannot be empty')
+        if (
+            dataToSubmit.fName === '' ||
+            dataToSubmit.lName === '' ||
+            dataToSubmit.mName === '' ||
+            dataToSubmit.phone === '' ||
+            dataToSubmit.homeAdd === '' ||
+            dataToSubmit.email === '' ||
+            dataToSubmit.cCenter === '' ||
+            dataToSubmit.code === '' ||
+            dataToSubmit.crime === ''
+        ) {
+            alert('All fields are required, Field cannot be empty')
         }
         else {
+            RegisterInmate(dispatch, dataToSubmit)
 
         }
     }
@@ -78,7 +109,7 @@ export default function RegInmate(props) {
                     </FormGroup>
                     <FormGroup>
                         <Label for="lastName">Last Name</Label>
-                        <Input type="text" name="lastName" value={profile.sName} onChange={handleChange} placeholder="Last Name" />
+                        <Input type="text" name="lName" value={profile.sName} onChange={handleChange} placeholder="Last Name" />
                     </FormGroup>
                     <FormGroup>
                         <Label for="mName">Middle Name</Label>
@@ -105,7 +136,24 @@ export default function RegInmate(props) {
                         <Label for="dob">Date of Birth</Label>
                         <DatePicker className='w-100 border border-secondary rounded' style={{ height: '100px' }} selected={profile.dob} calendarClassName="rasta-stripes" onChange={date => { setProfile({ ...profile, dob: date }); }} />
                     </FormGroup>
-
+                    <FormGroup>
+                        <Label for="exampleSelect">State</Label>
+                        <Input type="select" name="inmate_loc_state" value={profile.inmate_loc_state} onChange={handleChange} >
+                            {NaijaStates.map((state, index) => (
+                                <option key={index} value={state}>{state}</option>
+                            ))
+                            }
+                        </Input>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="state">L.G.A</Label>
+                        <Input type="select" name="loc_lga" value={profile.loc_lga} onChange={handleChange}>
+                            {LGAs.map((lga, index) => (
+                                <option key={index} value={lga}> {lga}</option>
+                            ))
+                            }
+                        </Input>
+                    </FormGroup>
 
                     <FormGroup>
                         <Label for="homeAdd">Home Address</Label>
@@ -114,17 +162,17 @@ export default function RegInmate(props) {
 
                     <FormGroup>
                         <Label for="emailAdd">Email Address</Label>
-                        <Input type="email" name="emailAdd" value={profile.emailAdd} onChange={handleChange} placeholder="email Address" />
+                        <Input type="email" name="email" value={profile.emailAdd} onChange={handleChange} placeholder="email Address" />
                     </FormGroup>
 
                     <FormGroup>
                         <Label for="nameOfCorrCenter">Name of Correctional Center</Label>
-                        <Input type="text" name="nameOfCorrCenter" value={profile.nameOfCorrCenter} onChange={handleChange} placeholder="Name of Correctional Center" />
+                        <Input type="text" name="cCenter" value={profile.nameOfCorrCenter} onChange={handleChange} placeholder="Name of Correctional Center" />
                     </FormGroup>
 
                     <FormGroup>
                         <Label for="cellCode">Cell Code</Label>
-                        <Input type="text" name="cellCode" value={profile.cellCode} onChange={handleChange} placeholder="Cell Code" />
+                        <Input type="text" name="code" value={profile.cellCode} onChange={handleChange} placeholder="Cell Code" />
                     </FormGroup>
 
                     <FormGroup className='d-flex flex-column'>
@@ -139,7 +187,7 @@ export default function RegInmate(props) {
 
                     <FormGroup>
                         <Label for="natureOfCrime">Nature of Crime</Label>
-                        <Input type="textarea" name="natureOfCrime" value={profile.natureOfCrime} onChange={handleChange} placeholder="Nature of crime" />
+                        <Input type="textarea" name="crime" value={profile.natureOfCrime} onChange={handleChange} placeholder="Nature of crime" />
                     </FormGroup>
 
                     <div className='d-flex justify-content-lg-center '>

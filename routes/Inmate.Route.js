@@ -6,7 +6,7 @@ const router = express.Router()
 //Getting all the Bloodcenter 
 
 router.post('/searchinmate', inmate.searchInmateByNameorCode);
-// router.post('/readBooking', inmate.readBooking);
+router.post('/register', inmate.registerInmate);
 // router.post('/addBooking', inmate.addBooking);
 // router.get('/', inmate.readAllinmate);
 

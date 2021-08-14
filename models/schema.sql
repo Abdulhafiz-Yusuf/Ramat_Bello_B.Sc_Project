@@ -10,9 +10,9 @@ CREATE TABLE admins (
 
 CREATE TABLE inmate (
   iId SERIAL PRIMARY KEY,
-  f_name VARCHAR(255) ,
-  l_name VARCHAR(255) ,
-  m_name VARCHAR(255) ,
+  f_name VARCHAR(255),
+  l_name VARCHAR(255),
+  m_name VARCHAR(255),
   dob DATE, --created Date
   gender VARCHAR(255),
   phone BIGINT,

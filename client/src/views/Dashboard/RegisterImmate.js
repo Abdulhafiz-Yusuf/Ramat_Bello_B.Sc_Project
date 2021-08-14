@@ -5,7 +5,21 @@ import Loading from '../../components/Loading'
 
 
 function RegisterImmate() {
-    const booking = 'booking'
+    const [profile, setprofile] = useState({
+        f_name: '',
+        l_name: '',
+        m_name: '',
+        gender: '',
+        phone: '',
+        dob: new Date(),
+        homeadd: '',
+        email: '',
+        ccenter: '',
+        code: '',
+        doi: '',
+        dor: '',
+        crime: ''
+    })
     // useSelector(state => state.BloodBankReducer.booking);
 
     return (

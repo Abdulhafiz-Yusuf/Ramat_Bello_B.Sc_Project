@@ -5,14 +5,21 @@ import { INMATE_SERVER } from '../../services/Config.json'
 
 
 
-export function RegInmate(dispatch, data) {
-    axios.post(`${INMATE_SERVER}/searchinmate`, data)
+export function RegisterInmate(dispatch, data) {
+    console.log(data)
+    axios.post(`${INMATE_SERVER}/register`, data)
         .then(response => {
-            if (response.data)
+            if (response.data.inmateExistAlready) {
+                alert('Sorry Inmate with thesame "cell code" already Exist')
+            }
+            if (response.data.success) {
                 dispatch({
                     type: 'SEARCH_INMATE',
                     payload: response.data
                 })
+                alert('Inmate Registered Successfully. Thanks')
+                window.location = '/dashboard'
+            }
         })
         .catch(err => {
             dispatch({

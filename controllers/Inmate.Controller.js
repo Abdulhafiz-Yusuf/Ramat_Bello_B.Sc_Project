@@ -1,9 +1,12 @@
 const db = require('../models/db');
 
 //=========================
-//  Bloodcenter controllers
+//  Inmate controllers
 //=========================
-//INSERT INTO bloodgroup(bg_id,bg,rhd,qty,postdate) VALUES(2,'A','-',30,'2021-03-07 00:00:00');
+
+
+
+//INSERT INTO inmate(bg_id,bg,rhd,qty,postdate) VALUES(2,'A','-',30,'2021-03-07 00:00:00');
 exports.readAllinmate = (req, res,) => {
     console.log('You read all inmate')
     db.query(`SELECT * FROM inmate ORDER BY iId ASC`)
@@ -18,7 +21,74 @@ exports.readAllinmate = (req, res,) => {
         })
 }
 
-exports.readBloodGroupByID = (req, res, next) => {
+
+exports.registerInmate = (req, res, next) => {
+
+    const values = [
+        req.body.fName,
+        req.body.lName,
+        req.body.mName,
+        req.body.dob,
+        req.body.gender,
+        req.body.phone,
+        req.body.email,
+        req.body.homeAdd,
+        req.body.inmate_loc_state,
+        req.body.loc_lga,
+        req.body.crime,
+        req.body.cCenter,
+        req.body.doi,
+        req.body.dor,
+        req.body.code,
+
+    ]
+    const code = req.body.code
+
+    // Check if inmate exist in database 
+    db.query(`SELECT * FROM inmate WHERE code=$1`, [code])
+        .then(q_res => {
+            if (q_res.rows.length !== 0) {
+                res.status(200).send({
+                    inmateExistAlready: true,
+                    inmate: q_res.rows //USER FULL INFO 
+                })
+            }
+            else {
+                // if Inmate does not exist before save to database
+                db.query(`INSERT INTO inmate(f_name, l_name,m_name, dob, gender, phone, email, hAddress, iLga, iState, crime,
+                        cCenter, doi, dor, code, postdate)
+                        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11, $12, $13, $14, $15, NOW())
+                        ON CONFLICT DO NOTHING`, values)
+                    .then(q_res => {
+                        if (q_res) {
+                            res.status(200).send({
+                                success: true,
+                                inmate: q_res.rows //USER FULL INFO 
+                            })
+                            console.log({ Registered: q_res.rows })
+                        }
+                    })
+                    .catch(q_err => {
+                        console.log({ Error: q_err.message })
+                        res.status(500).send({ Error: q_err.message }) //DB ERROR
+                    })
+            }
+        })
+        .catch(q_err => {
+            console.log({ Error: q_err.message })
+            res.status(500).send({ Error: q_err.message }) //DB ERROR
+        })
+
+
+
+
+}
+
+
+
+
+
+exports.readinmateByID = (req, res, next) => {
     const id = req.query.id;
     let bcDetail = {}
     let bgDetail = {};
@@ -31,7 +101,10 @@ exports.readBloodGroupByID = (req, res, next) => {
             // Send blood center extracted from database in response
             bcDetail = bcresult.rows
             db.query(`SELECT bg.bg_id,bg.bg, bg.rhd
-                FROM bloodgroup bg
+                
+            
+            
+            FROM inmate bg
                 WHERE bg.bg_id = $1
                 ORDER BY bg ASC`, [id])
                 .then(bgresult => {
@@ -71,8 +144,8 @@ exports.readBooking = (req, res,) => {
     const userId = req.body.users_Id
     console.log(userId)
     db.query(`SELECT bg.bg, bg.rhd, bc.centername, bc.locstate, bc.loclga, bc.qty
-                FROM booking bk, bloodcenter bc, bloodgroup bg
-                WHERE (bk.bg = bg_id) AND (bk.myusers=$1)`, [userId])
+            FROM booking bk, bloodcenter bc, inmate bg
+            WHERE (bk.bg = bg_id) AND (bk.myusers=$1)`, [userId])
         .then(result => {
             // Send booking extracted from database in response
             console.log(result.rows)

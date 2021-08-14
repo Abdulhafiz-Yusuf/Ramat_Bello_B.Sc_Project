@@ -12,56 +12,7 @@ const db = require('../models/db.js');
  * 4. Create VisitingHistory record
  */
 
-exports.registerInmate = (req, res, next) => {
-    console.log({ dataToSubmit: req.body })
-    const body = req.body
-    const values = [
-        body.fName,
-        body.lastName,
-        body.mName,
-        body.dob,
-        body.gender,
-        body.phone,
-        body.emailAdd,
-        body.homeAdd,
-        body.iLga,
-        body.iState,
-        body.natureOfCrime,
-        body.nameOfCorrCenter,
-        body.doi,
-        body.dor,
-        body.cellCode,
-    ]
-    const code = body.cellCode
-    db.query(`INSERT INTO 
-    inmate(f_name, l_name,m_name, dob, gender, phone, email, hAddre, iLga, iState, crime, cCenter, doi, dor, code, postdate)
-              VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11, $12, $13, $14, %15 NOW())
-        ON CONFLICT DO NOTHING`, values)
-        .then(q_res => {
-            if (q_res) {
-                // Send user extracted from database in response
-                //res.status(200).send({ success: true })
-                console.log(username)
-                db.query(`SELECT * FROM inmate WHERE code=$1`, [code])
-                    .then(q_res => {
-                        res.status(200).send({
-                            success: true,
-                            user: q_res.rows //USER FULL INFO 
-                        })
-                        console.log({ fullUserInfo: q_res.rows })
-                    })
-                    .catch(q_err => {
-                        console.log({ Error: q_err.message })
-                        res.status(500).send({ Error: q_err.message }) //DB ERROR
-                    })
-            }
 
-        })
-        .catch(q_err => {
-            console.log({ Error: q_err.message })
-            res.status(500).send({ Error: q_err.message }) //DB ERROR
-        })
-}
 
 exports.searchInameByCellCode = async (req, res, next) => {
     // const user_id = req.query.user_id

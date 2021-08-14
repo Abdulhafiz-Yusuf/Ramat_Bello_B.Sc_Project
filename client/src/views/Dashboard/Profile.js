@@ -7,14 +7,14 @@ import { globalStore } from '../../ContextAPI/globalStore';
 
 function Profile() {
 
-    const { state, dispatch  } = useContext(globalStore)
-    const inmate = state.inmate
-    const dob = inmate
+    const { state, dispatch } = useContext(globalStore)
+    const inmate = state.currentInmate
+
 
     return (
-        <div className='d-flex flex-row justify-content-center align-items-center' style={{width:'85vh'}} >
-           
-           
+        <div className='d-flex flex-row justify-content-center align-items-center' style={{ width: '85vh' }} >
+
+
             <Card className='w-100 d-flex mt-2 flex-column justify-content-center align-items-center'>
                 <img
                     // src={inmate.img}
@@ -44,7 +44,7 @@ function Profile() {
                     <div> <p className='text-uppercase font-weight-bold ml-3 '>{inmate.l_name}</p></div>
                     <hr />
                 </div>
-<div className='d-flex w-100 text-success border-bottom'>
+                <div className='d-flex w-100 text-success border-bottom'>
                     <div className='w-25 '><p className='ml-3'> Gender:  </p> </div>
                     <div> <p className='text-uppercase font-weight-bold ml-3 '>{inmate.gender}</p></div>
                     <hr />
@@ -73,21 +73,21 @@ function Profile() {
                     <div> <p className='text-uppercase font-weight-bold  ml-3 '>{inmate.istate}</p> </div>
                 </div>
 
-                 <div className='d-flex w-100 text-success border-bottom'>
+                <div className='d-flex w-100 text-success border-bottom'>
                     <div className='w-25 '><p className='ml-3'> Nature of Crime:  </p>  </div>
                     <div> <p className='text-uppercase font-weight-bold  ml-3 '>{inmate.crime}</p> </div>
                 </div>
-                  
-                  <div className='d-flex w-100 text-success border-bottom'>
+
+                <div className='d-flex w-100 text-success border-bottom'>
                     <div className='w-25 '><p className='ml-3'> Date of Imprisonment:  </p>  </div>
                     <div> <p className='text-uppercase font-weight-bold  ml-3 '>{inmate.doi}</p> </div>
                 </div>
 
-                 <div className='d-flex w-100 text-success border-bottom'>
+                <div className='d-flex w-100 text-success border-bottom'>
                     <div className='w-25 '><p className='ml-3'> Date of Release:  </p>  </div>
                     <div> <p className='text-uppercase font-weight-bold  ml-3 '>{inmate.dor}</p> </div>
                 </div>
-                
+
 
 
             </Card >

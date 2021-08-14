@@ -10,19 +10,17 @@ export default function rootReducer(state = initialState, action) {
 	switch (action.type) {
 		//USER REDUCER
 		case LOGIN:
-			return action.payload.user
+			return { ...state, user: action.payload.user }
 		case SIGNUP:
-			return action.payload.newUser
+			return { ...state, user: action.payload.newUser }
 		case GET_CURRENT_USER:
 			return { ...state, user: action.payload }
 
-
-		//RESULT REDUCER
+		//INMATE REDUCER
 		case FETCH_RESULT_DATA:
 			return { ...state, result: action.payload }
-
 		case VIEWPAGE:
-			return { ...state, ViewPage: action.payload.page, inmate: action.payload.inmate }
+			return { ...state, ViewPage: action.payload.page, currentInmate: action.payload.inmate }
 		case ERROR:
 			return { ...state, error: action.payload }
 		case SEARCH_INMATE:
