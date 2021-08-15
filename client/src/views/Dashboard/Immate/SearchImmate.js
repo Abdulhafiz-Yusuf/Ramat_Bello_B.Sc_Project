@@ -77,7 +77,7 @@ function SearchImmate() {
                         name="searchText"
                         value={searchText}
                         onChange={onSearchTextChange}
-                        placeholder={"Enter Inmate's Name or Inmate's Code search"} />
+                        placeholder={"Enter Inmate's Name or Inmate's Code"} />
                 </FormGroup>
 
                 <Button color='success'

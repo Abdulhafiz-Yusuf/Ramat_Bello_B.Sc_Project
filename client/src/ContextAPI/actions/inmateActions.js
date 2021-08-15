@@ -50,10 +50,31 @@ export function searchInmateByCodeorName(dispatch, data) {
 
 
 
+export function uploadImage(dispatch, formData, config, setImages) {
+    axios.post(`${INMATE_SERVER}/uploadImage`, formData, config)
+        .then(response => {
+            if (response.data.success) {
+                // setImages([...Images, response.data.image])
+                setImages([response.data.fileName])
+            } else {
+                alert('Failed to save the Image in Server')
+            }
+        })
+        .catch(err => {
+            console.log(err.message)
+            // dispatch({
+            //     type: 'ERROR',
+            //     payload: err.message
+            // })
+        })
+
+
+}
+
 
 
 // export async function fetchBloodbyId(bgId) {
-//     const request = await axios.get(`${BLOODCENTER_SERVER}/blood_by_id?id=${bgId}`)
+//     const request = await axios.get(`${ BLOODCENTER_SERVER } / blood_by_id ? id = ${ bgId }`)
 //         .then(response => {
 //             if (response.data)
 //                 return {

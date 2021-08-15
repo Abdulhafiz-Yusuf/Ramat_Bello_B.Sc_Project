@@ -1,5 +1,5 @@
 const db = require('../models/db');
-
+const multer = require('multer');
 //=========================
 //  Inmate controllers
 //=========================
@@ -83,11 +83,6 @@ exports.registerInmate = (req, res, next) => {
 
 
 }
-
-
-
-
-
 exports.readinmateByID = (req, res, next) => {
     const id = req.query.id;
     let bcDetail = {}
@@ -118,18 +113,18 @@ exports.readinmateByID = (req, res, next) => {
             res.status(500).send({ Error: q_err.message }) //DB ERROR
         })
 }
-
-exports.searchInmateByNameorCode = async (req, res, next) => {
+exports.searchInmateByNameorCode = async (req, res) => {
     const searchText = req.body.searchText
     console.log(searchText)
 
     db.query(`SELECT * FROM inmate
                   WHERE f_name =$1 OR l_name=$1 OR m_name=$1 OR code=$1`, [searchText])
         .then(q_res => {
-            res.status(200).send({
-                success: true,
-                inmate: q_res.rows //USER FULL INFO 
-            })
+            res.status(200)
+                .send({
+                    success: true,
+                    inmate: q_res.rows //USER FULL INFO 
+                })
             console.log({ inmate: q_res.rows })
         })
         .catch(q_err => {
@@ -140,39 +135,36 @@ exports.searchInmateByNameorCode = async (req, res, next) => {
 
 }
 
-exports.readBooking = (req, res,) => {
-    const userId = req.body.users_Id
-    console.log(userId)
-    db.query(`SELECT bg.bg, bg.rhd, bc.centername, bc.locstate, bc.loclga, bc.qty
-            FROM booking bk, bloodcenter bc, inmate bg
-            WHERE (bk.bg = bg_id) AND (bk.myusers=$1)`, [userId])
-        .then(result => {
-            // Send booking extracted from database in response
-            console.log(result.rows)
-            res.status(200).send(result.rows)
-        })
-        .catch(q_err => {
-            console.log({ Error: q_err.message })
-            res.status(500).send({ Error: q_err.message }) //DB ERROR
-        })
+//=================================
+//             Image upload
+//=================================
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        // cb(null, 'uploads/')
+        cb(null, './client/src/assets/uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}_${file.originalname}`)
+    },
+    fileFilter: (req, file, cb) => {
+        const ext = path.extname(file.originalname)
+        if (ext !== '.jpg' || ext !== '.png') {
+            return cb(res.status(400).end('only jpg, png are allowed'), false);
+        }
+        cb(null, true)
+    }
+})
+
+var upload = multer({ storage: storage }).single("file")
+
+exports.ImageUpload = (req, res) => {
+    upload(req, res, err => {
+        if (err) {
+            console.log(err)
+            return res.json({ success: false, err })
+        }
+        console.log(res.req.file.filename)
+        return res.json({ success: true, path: res.req.file.path, fileName: res.req.file.filename })
+    })
 }
 
-
-exports.addBooking = (req, res,) => {
-    const values = [
-        req.body.users_id,
-        req.body.bc_id,
-        req.body.bg_id,
-    ]
-
-    db.query(`INSERT INTO booking(myusers, bc,bg,postdate)
-                VALUES($1,$2,$3,NOW())`, values)
-        .then(result => {
-            // Send booking extracted from database in response
-            res.status(200).send({ success: true })
-        })
-        .catch(q_err => {
-            console.log({ Error: q_err.message })
-            res.status(500).send({ Error: q_err.message }) //DB ERROR
-        })
-}

@@ -7,6 +7,7 @@ import RegGuest from './Guest/RegGuest'
 import DashBoardMenu from "./DashBoardMenu";
 import { globalStore } from '../../ContextAPI/globalStore'
 import Profile from "./Profile";
+import VisitHistory from "./Immate/VisitHistory";
 
 /*
 =========================
@@ -74,7 +75,11 @@ export default function UserDashBoard() {
                                         ?
                                         <Profile />
                                         :
-                                        <SearchImmate />
+                                        stateViewPage === 'vHistory'
+                                            ?
+                                            <VisitHistory />
+                                            :
+                                            <SearchImmate />
 
                         }
                     </div >

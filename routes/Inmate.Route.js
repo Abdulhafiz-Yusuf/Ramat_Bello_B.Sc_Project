@@ -2,13 +2,13 @@ const inmate = require('../controllers/Inmate.Controller');
 const express = require('express')
 const router = express.Router()
 
-//Bloodcenter Endpoints
-//Getting all the Bloodcenter 
+//Inmage Endpoints
+//Getting all the Inmage 
 
 router.post('/searchinmate', inmate.searchInmateByNameorCode);
 router.post('/register', inmate.registerInmate);
-// router.post('/addBooking', inmate.addBooking);
-// router.get('/', inmate.readAllinmate);
+router.post("/uploadImage", inmate.ImageUpload);
+
 
 module.exports = router
 
