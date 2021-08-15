@@ -1,5 +1,10 @@
 const db = require('../models/db');
 const multer = require('multer');
+
+
+
+
+
 //=========================
 //  Inmate controllers
 //=========================
@@ -113,18 +118,17 @@ exports.readinmateByID = (req, res, next) => {
             res.status(500).send({ Error: q_err.message }) //DB ERROR
         })
 }
-exports.searchInmateByNameorCode = async (req, res) => {
+exports.searchInmateByNameorCode = async (req, res, next) => {
     const searchText = req.body.searchText
     console.log(searchText)
 
     db.query(`SELECT * FROM inmate
                   WHERE f_name =$1 OR l_name=$1 OR m_name=$1 OR code=$1`, [searchText])
         .then(q_res => {
-            res.status(200)
-                .send({
-                    success: true,
-                    inmate: q_res.rows //USER FULL INFO 
-                })
+            res.status(200).send({
+                success: true,
+                inmate: q_res.rows //USER FULL INFO 
+            })
             console.log({ inmate: q_res.rows })
         })
         .catch(q_err => {
@@ -142,6 +146,8 @@ var storage = multer.diskStorage({
     destination: (req, file, cb) => {
         // cb(null, 'uploads/')
         cb(null, './client/src/assets/uploads')
+        // cb(null, './client/public')
+        // cb(null, 'public')
     },
     filename: (req, file, cb) => {
         cb(null, `${Date.now()}_${file.originalname}`)
@@ -164,7 +170,7 @@ exports.ImageUpload = (req, res) => {
             return res.json({ success: false, err })
         }
         console.log(res.req.file.filename)
-        return res.json({ success: true, path: res.req.file.path, fileName: res.req.file.filename })
+        return res.json({ success: true, path: res.req.file.path, filename: res.req.file.filename })
     })
 }
 

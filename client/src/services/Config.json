@@ -1,4 +1,4 @@
 {
-    "USER_SERVER": "/user",
-    "INMATE_SERVER": "/inmate"
+    "USER_SERVER": "http://localhost:8000/user",
+    "INMATE_SERVER": "http://localhost:8000/inmate"
 }

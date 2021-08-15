@@ -5,10 +5,12 @@ import { globalStore } from '../../../ContextAPI/globalStore'
 //DATEPICKER AND ITS CSS
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import importedImg from './2.png'
 import { RegisterInmate, uploadImage } from '../../../ContextAPI/actions/inmateActions';
 
-import { NaijaStates, NaijaLGA } from './stateLGAData';
+import {
+    NaijaStates, NaijaLGA
+} from './stateLGAData';
 
 /*==========================
 REGISTRATION COMPLETION PAGE
@@ -98,7 +100,7 @@ export default function RegInmate(props) {
 
     let formData = new FormData();
 
-    const onImageUpload = (files) => {
+    const onImageUpload = () => {
 
         const config = {
             header: { 'content-type': 'multipart/form-data' }
@@ -110,17 +112,14 @@ export default function RegInmate(props) {
 
 
     const onfileSelect = (e) => {
-
         setSelectedFile({
             name: e.target.files[0].name,
-            file: e.target.files[0]
+            file: e.target.files[0],
+            img: URL.createObjectURL(e.target.files[0])
         })
 
     }
 
-    const onfileUpload = (e) => {
-
-    }
 
 
 
@@ -134,33 +133,28 @@ export default function RegInmate(props) {
 
                 <Form>
 
-                    {/* <FormGroup >
-                        <Label for="fName">Inmate Passport</Label>
-                        <div class='d-flex'>
-                            <Input type="file" name="fName" onChange={onfileSelect} placeholder={selectedFile.name} />
-                            <Button color='success' className='font-weight-bold' onClick={onImageUpload}>Upload</Button>
-                        </div> */}
-                    {/* <div style={{ display: 'flex', width: '350px', height: '240px', overflowX: 'scroll' }}>
 
-                            {
-                                Images.map((image, index) => {
-                                    console.log(image)
-
-                                    return (
-                                        <img style={{ minWidth: '150px', width: '150px', height: '150px' }}
-                                            // src={`/${image}`}
-                                            // src={require(`../../../assets/uploads/1629034748132_Screenshot from 2021-08-11 17-53-21.png${image}`)}
-                                            src={require('./2.png')}
-                                            // src={img}
-                                            alt={`${image}`}
-                                        />
-                                    )
-                                })
-                            }
+                    <Label for="fName">Inmate Passport</Label>
+                    <div class='d-flex'>
+                        <Input type="file" name="fName" onChange={onfileSelect} placeholder={selectedFile.name} />
+                        <Button color='success' className='font-weight-bold' onClick={onImageUpload}>Upload</Button>
+                    </div>
 
 
-                        </div> */}
-                    {/* </FormGroup> */}
+                    {
+                        Images.map((image, index) => {
+                            console.log(image)
+                            return (
+                                <img style={{ minWidth: '100px', width: '100px', height: '100px' }}
+                                    src={selectedFile.img}
+                                    // src={'http://localhost:8000/' + image}
+                                    alt={'productImg' + image}
+                                />
+                            )
+                        })
+                    }
+
+
 
                     <FormGroup>
                         <Label for="fName">First Name</Label>

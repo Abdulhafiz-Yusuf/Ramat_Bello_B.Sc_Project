@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { INMATE_SERVER } from '../../services/Config.json'
 
-
+// "proxy": "http://localhost:8000"
 
 
 
@@ -48,14 +48,14 @@ export function searchInmateByCodeorName(dispatch, data) {
 
 }
 
-
-
 export function uploadImage(dispatch, formData, config, setImages) {
+    console.log(formData)
     axios.post(`${INMATE_SERVER}/uploadImage`, formData, config)
         .then(response => {
             if (response.data.success) {
                 // setImages([...Images, response.data.image])
-                setImages([response.data.fileName])
+                setImages([response.data.filename])
+                alert('Uploaded Successfully')
             } else {
                 alert('Failed to save the Image in Server')
             }
