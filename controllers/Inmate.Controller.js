@@ -33,7 +33,6 @@ exports.readAllinmate = (req, res,) => {
  * REGISTERING INMATE AND UPLOAD OF INMATE PIC
  */
 exports.registerInmate = (req, res, next) => {
-    console.log(req.body)
     const values = [
         req.body.fName,
         req.body.lName,
@@ -53,7 +52,7 @@ exports.registerInmate = (req, res, next) => {
         req.body.iPic,
     ]
     const code = req.body.code
-    console.log(values)
+
     // Check if inmate exist in database 
     db.query(`SELECT * FROM inmate WHERE code=$1`, [code])
         .then(q_res => {
@@ -66,7 +65,7 @@ exports.registerInmate = (req, res, next) => {
                         VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11, $12, $13, $14, $15,$16, NOW())
                         ON CONFLICT DO NOTHING`, values)
                     .then(q_res => {
-                        if (q_res.rows.length !== 0) {
+                        if (q_res) {
                             res.status(200).send({ success: true, inmate: q_res.rows })//USER FULL INFO 
                             console.log({ Registered: q_res })
                         }
@@ -167,7 +166,7 @@ exports.ImageUpload = (req, res) => {
             res.status(500).send({ Error: q_err.message }) //DB ERROR
         }
         else {
-
+            console.log({ picPath: res.req.file.path, picName: res.req.file.filename })
             return res.status(200).send({ success: true, path: res.req.file.path, filename: res.req.file.filename })
         }
 

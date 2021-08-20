@@ -29,9 +29,8 @@ export function updateInmatePic(dispatch, inmate, picName) {
 }
 
 
-export function uploadImage(dispatch, formData, config, setImages, setInmatePicName, update, inmate) {
+export function uploadImage(dispatch, formData, config, setImage, setInmatePicName, update, inmate) {
     console.log(formData)
-
     axios.post(`${INMATE_SERVER}/uploadImage`, formData, config)
         .then(response => {
             if (response.data.success) {
@@ -39,9 +38,9 @@ export function uploadImage(dispatch, formData, config, setImages, setInmatePicN
                 if (update) {
                     updateInmatePic(dispatch, inmate, response.data.filename)
                 }
-                else {
+                else if (response.data.success & !update) {
                     setInmatePicName(response.data.filename)
-                    setImages(response.data.image)
+                    setImage(response.data.filename)
                     alert('Uploaded Successful')
                 }
 
@@ -62,21 +61,22 @@ export function uploadImage(dispatch, formData, config, setImages, setInmatePicN
 
 
 export function RegisterInmate(dispatch, data) {
-    console.log(data)
+
     axios.post(`${INMATE_SERVER}/register`, data)
         .then(response => {
             if (response.data.inmateExistAlready) {
                 alert('Sorry Inmate with thesame "cell code" already Exist')
             }
             if (response.data.success) {
-                //uploadImage function is defeined
+                console.log(response.data.success)
                 // uploadImage(dispatch, formData, config, setImages, setInmatePicName)
+                alert('Inmate Registered Successfully. Thanks')
+                window.location = '/dashboard'
                 dispatch({
                     type: 'SEARCH_INMATE',
                     payload: response.data
                 })
-                alert('Inmate Registered Successfully. Thanks')
-                window.location = '/dashboard'
+
             }
         })
         .catch(err => {

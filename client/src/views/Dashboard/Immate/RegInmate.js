@@ -19,7 +19,7 @@ REGISTRATION COMPLETION PAGE
 export default function RegInmate(props) {
     let formData = new FormData();
     const { dispatch } = useContext(globalStore)
-    const [Images, setImages] = useState([])
+    const [Image, setImage] = useState()
     const [selectedFile, setSelectedFile] = useState({ name: '', file: '' })
     const [InmatePicName, setInmatePicName] = useState()
     const [profile, setProfile] = useState({
@@ -101,7 +101,7 @@ export default function RegInmate(props) {
         }
         formData.append("file", selectedFile.file)
         //save the Image we chose inside the Node Server 
-        uploadImage(dispatch, formData, config, setImages, setInmatePicName)
+        uploadImage(dispatch, formData, config, setImage, setInmatePicName)
     }
 
     const onfileSelect = (e) => {
@@ -128,16 +128,12 @@ export default function RegInmate(props) {
                         <Button color='success' className='font-weight-bold' onClick={onImageUpload}>Upload</Button>
                     </div>
                     {
-                        Images.map((image, index) => {
-                            console.log(image)
-                            return (
-                                <img style={{ minWidth: '100px', width: '100px', height: '100px' }}
-                                    src={selectedFile.img}
-                                    // src={'http://localhost:8000/' + image}
-                                    alt={'productImg' + image}
-                                />
-                            )
-                        })
+                        Image &&
+                        <img style={{ minWidth: '100px', width: '100px', height: '100px' }}
+                            src={selectedFile.img}
+                            // src={'http://localhost:8000/' + image}
+                            alt={'productImg' + Image}
+                        />
                     }
                     <FormGroup>
                         <Label for="fName">First Name</Label>
