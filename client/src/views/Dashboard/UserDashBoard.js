@@ -8,6 +8,7 @@ import DashBoardMenu from "./DashBoardMenu";
 import { globalStore } from '../../ContextAPI/globalStore'
 import Profile from "./Profile";
 import VisitHistory from "./Immate/VisitHistory";
+import UploadInmatePic from "./Immate/UploadInmatePic";
 
 /*
 =========================
@@ -79,7 +80,10 @@ export default function UserDashBoard() {
                                             ?
                                             <VisitHistory />
                                             :
-                                            <SearchImmate />
+                                            stateViewPage === 'uploadImage' ?
+                                                <UploadInmatePic />
+                                                :
+                                                < SearchImmate />
 
                         }
                     </div >

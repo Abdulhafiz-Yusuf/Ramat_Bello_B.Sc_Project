@@ -105,7 +105,9 @@ function SearchImmate() {
                                     return (
                                         < tr key={index}>
                                             <td>
-                                                <img src={inmate.img} alt='Inmate Pic'
+
+                                                <img
+                                                    src={require(`../../../assets/uploads/${inmate.ipic}`).default} alt='Inmate Pic'
                                                     className='rounded-circle border'
                                                     style={{ height: '100px', width: '100px' }} />
                                             </td>

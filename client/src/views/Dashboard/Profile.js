@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Card, Button } from 'reactstrap'
-import { viewPageAction } from '../../ContextAPI/actions/inmateActions';
+import { Card, Button, Media, Badge } from 'reactstrap'
+import { viewPageAction } from '../../ContextAPI/actions/UserActions';
 import { globalStore } from '../../ContextAPI/globalStore';
-
+import { Image } from 'react-bootstrap'
+import { BsPencil } from "react-icons/bs";
 
 
 function Profile() {
@@ -10,19 +11,37 @@ function Profile() {
     const { state, dispatch } = useContext(globalStore)
     const inmate = state.currentInmate
 
+    console.log(inmate)
 
+    const iPic = inmate.ipic
     return (
         <div className='d-flex flex-row justify-content-center align-items-center' style={{ width: '85vh' }} >
 
-
             <Card className='w-100 d-flex mt-2 flex-column justify-content-center align-items-center'>
-                <img
-                    // src={inmate.img}
-                    alt='Inmate Pic'
-                    className='rounded-circle border mt-2'
-                    style={{ height: '100px', width: '100px' }}
-                />
+                {
+                    inmate.ipic ?
+                        <div className=''>
+                            <img style={{ minWidth: '100px', width: '100px', height: '100px' }}
+                                src={require(`../../assets/uploads/${iPic}`).default}
+                                alt={'productImg'}
+                                className='rounded-circle border mt-2 mr-1'
+                            />
+                            <Badge
+                                onClick={() => dispatch(viewPageAction('uploadImage', inmate))}
+                            > <BsPencil /></Badge>
+                        </div>
+                        :
+                        <button
+                            onClick={() => dispatch(viewPageAction('uploadImage', inmate))}
+                            className='rounded-circle border mt-2 mr-1 text-success'
+                            style={{ minWidth: '100px', width: '100px', height: '100px' }}
 
+                        >
+
+                            <BsPencil /> <br />
+                            Click to upload Pic
+                        </button>
+                }
                 <div className='d-flex w-100 text-success border-bottom'>
                     <div className='w-25'><p className='ml-3'>Code:  </p> </div>
                     <div> <p className='text-uppercase font-weight-bold ml-3'>{inmate.code}</p></div>

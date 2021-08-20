@@ -16,7 +16,7 @@ CREATE TABLE inmate (
   dob DATE, --created Date
   gender VARCHAR(255),
   phone BIGINT,
-  email VARCHAR(255) UNIQUE,
+  email VARCHAR(255),
   hAddress VARCHAR(255),
   iLga VARCHAR(255),
   iState VARCHAR(255),
@@ -24,7 +24,8 @@ CREATE TABLE inmate (
   cCenter VARCHAR(255),
   doi DATE,
   dor DATE,
-  code VARCHAR(255),
+  code VARCHAR(255) UNIQUE,
+  ipic VARCHAR(255),
   postdate TIMESTAMP --created Date
 );
 

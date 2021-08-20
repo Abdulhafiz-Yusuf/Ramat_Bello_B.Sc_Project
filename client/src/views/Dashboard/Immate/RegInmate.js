@@ -5,7 +5,7 @@ import { globalStore } from '../../../ContextAPI/globalStore'
 //DATEPICKER AND ITS CSS
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import importedImg from './2.png'
+
 import { RegisterInmate, uploadImage } from '../../../ContextAPI/actions/inmateActions';
 
 import {
@@ -17,18 +17,16 @@ REGISTRATION COMPLETION PAGE
 =============================*/
 
 export default function RegInmate(props) {
-
+    let formData = new FormData();
     const { dispatch } = useContext(globalStore)
     const [Images, setImages] = useState([])
-    const [selectedFile, setSelectedFile] = useState({
-        name: '',
-        file: ''
-    })
+    const [selectedFile, setSelectedFile] = useState({ name: '', file: '' })
+    const [InmatePicName, setInmatePicName] = useState()
     const [profile, setProfile] = useState({
         fName: '',
         lName: '',
         mName: '',
-        gender: '',
+        gender: 'Male',
         phone: '',
         dob: new Date(),
         inmate_loc_state: 'Abia',
@@ -54,8 +52,6 @@ export default function RegInmate(props) {
         console.log(value)
     }
 
-
-
     const onSubmit = (e) => {
         e.preventDefault()
 
@@ -75,9 +71,9 @@ export default function RegInmate(props) {
             doi: profile.doi,
             dor: profile.dor,
             crime: profile.crime,
-
+            iPic: InmatePicName
         }
-        // dispatch(completeRegistration(dataToSubmit))
+
         if (
             dataToSubmit.fName === '' ||
             dataToSubmit.lName === '' ||
@@ -92,13 +88,11 @@ export default function RegInmate(props) {
             alert('All fields are required, Field cannot be empty')
         }
         else {
+
             RegisterInmate(dispatch, dataToSubmit)
 
         }
     }
-
-
-    let formData = new FormData();
 
     const onImageUpload = () => {
 
@@ -107,11 +101,11 @@ export default function RegInmate(props) {
         }
         formData.append("file", selectedFile.file)
         //save the Image we chose inside the Node Server 
-        uploadImage(dispatch, formData, config, setImages)
+        uploadImage(dispatch, formData, config, setImages, setInmatePicName)
     }
 
-
     const onfileSelect = (e) => {
+        e.preventDefault()
         setSelectedFile({
             name: e.target.files[0].name,
             file: e.target.files[0],
@@ -120,9 +114,6 @@ export default function RegInmate(props) {
 
     }
 
-
-
-
     return (
         <div className='w-75'>
             <div style={{ height: '10px' }}></div>
@@ -130,17 +121,12 @@ export default function RegInmate(props) {
                 <div className='d-flex justify-content-lg-center '>
                     <h2 className='text-success font-weight-bold'>Register an Inmate</h2>
                 </div>
-
                 <Form>
-
-
                     <Label for="fName">Inmate Passport</Label>
                     <div class='d-flex'>
                         <Input type="file" name="fName" onChange={onfileSelect} placeholder={selectedFile.name} />
                         <Button color='success' className='font-weight-bold' onClick={onImageUpload}>Upload</Button>
                     </div>
-
-
                     {
                         Images.map((image, index) => {
                             console.log(image)
@@ -153,9 +139,6 @@ export default function RegInmate(props) {
                             )
                         })
                     }
-
-
-
                     <FormGroup>
                         <Label for="fName">First Name</Label>
                         <Input type="text" name="fName" value={profile.fName} onChange={handleChange} placeholder="First Name" />

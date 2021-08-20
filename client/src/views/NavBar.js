@@ -2,8 +2,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Button } from 'reactstrap';
-import logo from '../assets/logo.png'
-import coat from '../assets/coat.jpg'
+// import logo from '/images/logo.png.png'
+// import coat from '/images/coat.jpg.jpg'
 
 import { globalStore } from '../ContextAPI/globalStore';
 import useWindowSize from '../components/utility/useWindowSize'
@@ -34,7 +34,7 @@ export default function NavBar({ user, setisLoading }) {
                         color="success"
                         light expand="md">
                         <NavbarBrand to="/" className='font-weight-bold'>
-                            <img style={{ height: '50px', width: '50px' }} src={logo} alt='logo' />
+                            <img style={{ height: '50px', width: '50px' }} src={'/images/logo.png'} alt='logo' />
                         </NavbarBrand>
 
                         <NavbarToggler onClick={toggle} />
@@ -77,7 +77,7 @@ export default function NavBar({ user, setisLoading }) {
                         color="success"
                         light expand="md">
                         <NavbarBrand to="/" className='font-weight-bold'>
-                            <img style={{ height: '120px', width: '120px' }} src={logo} alt='logo' />
+                            <img style={{ height: '120px', width: '120px' }} src={'/images/logo.png'} alt='logo' />
                         </NavbarBrand>
 
                         <NavbarToggler onClick={toggle} />
@@ -130,7 +130,7 @@ export default function NavBar({ user, setisLoading }) {
 
                         </Collapse>
                         <NavbarBrand to="/" className='font-weight-bold'>
-                            <img className='rounded-circle' style={{ height: '120px', width: '120px' }} src={coat} alt='coat' />
+                            <img className='rounded-circle' style={{ height: '120px', width: '120px' }} src={'/images/coat.jpg'} alt='coat' />
                         </NavbarBrand>
 
                     </Navbar>

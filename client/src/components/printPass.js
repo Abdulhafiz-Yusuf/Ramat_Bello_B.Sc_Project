@@ -1,15 +1,14 @@
 import React, { useRef } from 'react'
 //import Results from './Results';
-import ResultClassBased from './ResultClassBased'
-import { useReactToPrint } from 'react-to-print';
+// import { useReactToPrint } from 'react-to-print';
 import { Button } from 'reactstrap';
 
 function PrintPass() {
     const [buttonDisplay, setbtnDisplay] = React.useState({ display: 'flex' })
     const componentRef = useRef();
-    const handlePrint = useReactToPrint({
-        content: () => componentRef.current,
-    });
+    // const handlePrint = useReactToPrint({
+    //     content: () => componentRef.current,
+    // });
 
     // const backHandler = () => {
     //     window.location = '/resultsgenerator'
@@ -24,9 +23,11 @@ function PrintPass() {
                 </Button> */}
                 <Button className='text-light font-weight-bold'
                     color='success'
-                    onClick={handlePrint}>Generate Gate Pass</Button>
+                // onClick={handlePrint}
+                >Generate Gate Pass
+                </Button>
             </div >
-            <ResultClassBased ref={componentRef} style={{ buttonDisplay }} />
+            {/* <ResultClassBased ref={componentRef} style={{ buttonDisplay }} /> */}
         </div>
 
     );
