@@ -22,7 +22,7 @@ function Profile() {
                     inmate.ipic ?
                         <div className=''>
                             <img style={{ minWidth: '100px', width: '100px', height: '100px' }}
-                                src={require(`../../assets/uploads/${iPic}`).default}
+                                // src={require(`../../assets/uploads/${iPic}`).default}
                                 alt={'productImg'}
                                 className='rounded-circle border mt-2 mr-1'
                             />
