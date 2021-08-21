@@ -1,5 +1,4 @@
-
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, } from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Button } from 'reactstrap';
 // import logo from '/images/logo.png.png'
@@ -7,11 +6,11 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, Button } from 'react
 
 import { globalStore } from '../ContextAPI/globalStore';
 import useWindowSize from '../components/utility/useWindowSize'
-import { fetchCurrentUser, onLogOut } from '../ContextAPI/actions/UserActions';
+import { onLogOut } from '../ContextAPI/actions/UserActions';
 
 export default function NavBar({ user, setisLoading }) {
 
-    const { state, dispatch } = useContext(globalStore)
+    const { dispatch } = useContext(globalStore)
 
 
     const { width } = useWindowSize();

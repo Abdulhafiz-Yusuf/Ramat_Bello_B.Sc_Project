@@ -1,21 +1,15 @@
 import React, { useState, useContext } from 'react'
-import { Table, Label, Button, Form, FormGroup, Input } from 'reactstrap';
+import { Table, Button, Form, FormGroup, Input } from 'reactstrap';
 import { globalStore } from '../../../ContextAPI/globalStore'
 import { viewPageAction } from '../../../ContextAPI/actions/UserActions'
 import { searchInmateByCodeorName } from '../../../ContextAPI/actions/inmateActions';
 
 
-
-
 function SearchImmate() {
     const [searchText, setsearchText] = useState()
-    const [SearchType, setSearchType] = useState('1')
+    // const [SearchType, setSearchType] = useState('1')
 
     const { state, dispatch } = useContext(globalStore)
-
-
-
-
 
 
     const onSearchTextChange = (e) => {
@@ -38,15 +32,11 @@ function SearchImmate() {
         }
     }
 
-    const bgHanleChange = (e) => {
-        const value = e.target.value
-        setSearchType(value)
-        console.log(value)
-    }
-
-    const viewHandler = () => {
-
-    }
+    // const bgHanleChange = (e) => {
+    //     const value = e.target.value
+    //     setSearchType(value)
+    //     console.log(value)
+    // }
 
     return (
         <div className='w-75'>
@@ -105,9 +95,9 @@ function SearchImmate() {
                                     return (
                                         < tr key={index}>
                                             <td>
-
                                                 <img
-                                                    // src={require(`../../../assets/uploads/${inmate.ipic}`).default} alt='Inmate Pic'
+                                                    // src={require(`../../../assets/uploads/${inmate.ipic}`).default} 
+                                                    alt='Inmate Pic'
                                                     className='rounded-circle border'
                                                     style={{ height: '100px', width: '100px' }} />
                                             </td>

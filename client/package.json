@@ -48,7 +48,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "url-loader": "^4.1.1"
-  }
+  "devDependencies": {}
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, Label, Modal, Spinner } from 'reactstrap';
+import { Label, Spinner } from 'reactstrap';
 
 function LoadScreen({ size, text, height }) {
     return (

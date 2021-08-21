@@ -14,7 +14,7 @@ function SearchImmate() {
 
 
     const [searchText, setsearchText] = useState()
-    const [SearchType, setSearchType] = useState('1')
+    // const [SearchType, setSearchType] = useState('1')
 
     const { state, dispatch } = useContext(globalStore)
 

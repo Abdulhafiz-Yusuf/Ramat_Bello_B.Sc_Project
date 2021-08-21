@@ -34,7 +34,7 @@ function UploadInmatePic() {
         const config = {
             header: { 'content-type': 'multipart/form-data' }
         }
-        const data = { inmate: 'id' }
+
         formData.append("file", selectedFile.file)
         //save the Image we chose inside the Node Server 
         let update = true

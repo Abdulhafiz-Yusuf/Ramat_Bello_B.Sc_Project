@@ -1,7 +1,7 @@
 import React, { } from 'react'
 
 import { CardTitle, CardText, } from 'reactstrap'
-import Carousel from '../components/Carousel'
+
 
 
 

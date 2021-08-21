@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Card, Button, Media, Badge } from 'reactstrap'
+import React, { useContext, } from 'react'
+import { Card, Badge } from 'reactstrap'
 import { viewPageAction } from '../../ContextAPI/actions/UserActions';
 import { globalStore } from '../../ContextAPI/globalStore';
-import { Image } from 'react-bootstrap'
+
 import { BsPencil } from "react-icons/bs";
 
 
@@ -11,9 +11,6 @@ function Profile() {
     const { state, dispatch } = useContext(globalStore)
     const inmate = state.currentInmate
 
-    console.log(inmate)
-
-    const iPic = inmate.ipic
     return (
         <div className='d-flex flex-row justify-content-center align-items-center' style={{ width: '85vh' }} >
 
