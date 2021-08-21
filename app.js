@@ -9,25 +9,22 @@ const PORT = process.env.PORT || 8000; // use either the host env var port (PORT
 
 app.use(cors()); // Enable CORS 
 app.use(express.json()); // Recognize Request Objects as JSON objects
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// if (process.env.NODE_ENV === "production") {
-//   //   //server static content
-//   //   //npm run build
-//   //app.use(express.static(path.join(__dirname, "./build")));
-//   app.use(express.static("./client/build")); // serve static files (css & js) from the 'build' directory...NB: this is also equivalent app.use(express.static('build')); 
+if (process.env.NODE_ENV === "production") {
+  // serve static files (css & js) from the 'build' directory...
+  //NB: this is also equivalent :  //app.use(express.static('build')); 
+  app.use(express.static("./client/build"));
+  //app.use(express.static(path.join(__dirname, "./build")));
+}
+else {
+  app.use(express.static('./client/build'));
+}
 
-// }
-// else {
-//   app.use(express.static('./client/build'));
-// }
-
-
-
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'client/build/index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build/index.html'));
+});
 
 //ROUTES
 const Inmate = require('./routes/Inmate.Route')
