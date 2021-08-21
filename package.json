@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "back-end for the front-end to be used as an example for how to deploy a fullstack app using Heroku.",
   "main": "app.js",
+  "engines": {
+    "node": "14.15.3"
+  },
   "scripts": {
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
