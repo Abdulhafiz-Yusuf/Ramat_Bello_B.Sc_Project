@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Card, Table, Label, Button, Form, FormGroup, Input } from 'reactstrap';
 import { globalStore } from '../../../ContextAPI/globalStore'
 import { viewPageAction } from '../../../ContextAPI/actions/UserActions'
@@ -10,11 +10,14 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 function SearchImmate() {
+    useEffect(() => {
 
+        setEnterGuestInfor(false)
+    }, [])
 
 
     const [searchText, setsearchText] = useState()
-    // const [SearchType, setSearchType] = useState('1')
+    const [EnterGuestInfor, setEnterGuestInfor] = useState(false)
 
     const { state, dispatch } = useContext(globalStore)
 
@@ -74,167 +77,173 @@ function SearchImmate() {
 
     return (
         <div className='w-75'>
-            <Form className='d-flex flex-column justify-content-start ' >
-                <h4 className=' text-success text-center font-weight-bold'>SEARCH INMATE</h4>
-                {/* <FormGroup tag="fieldset" className='d-flex flex-row' >
-                     {
-                        [
-                            { label: 'Search by Code', key: '1' },
-                            { label: 'Search by Name', key: '2' }
-
-                        ].map((option, index) => {
-                            return (
-                                <FormGroup check>
-                                    <Label check className='text-success pl-5'>
-                                        <Input id={index} type="radio" value={option.key} onChange={bgHanleChange} checked={option.key === SearchType} />
-                                        {option.label}
-                                    </Label>
-                                </FormGroup>
-                            )
-                        })
-                    } 
-                </FormGroup>
-                */}
-                < FormGroup className='mr-3'>
-                    <Input
-                        type="text"
-                        name="searchText"
-                        value={searchText}
-                        onChange={onSearchTextChange}
-                        placeholder={"Enter Inmate's Name or Inmate's Code search"} />
-                </FormGroup>
-
-                <Button color='success'
-                    onClick={onSearch}
-                    className='' >
-                    Search</Button>
-            </Form >
             {
-                state.inmate.inmate ?
-                    <Table className='text-success text-center mt-5 w-100' bordered hover striped>
-                        <thead>
-                            <tr>
+                !EnterGuestInfor &&
+                <div>
+                    <Form className='d-flex flex-column justify-content-start ' >
+                        <h4 className=' text-success text-center font-weight-bold'>SEARCH INMATE</h4>
+                        <h6>Please Search for Inmate to visit, then click on the visit button to enter visitor's information</h6>
+                        < FormGroup className='mr-3'>
+                            <Input
+                                type="text"
+                                name="searchText"
+                                value={searchText}
+                                onChange={onSearchTextChange}
+                                placeholder={"Enter Inmate's Name or Inmate's Code search"} />
+                        </FormGroup>
 
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Code</th>
-                                <th>Actions</th>
+                        <Button color='success'
+                            onClick={onSearch}
+                            className='' >
+                            Search</Button>
+                    </Form >
+                    {
+                        state.inmate.inmate ?
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                state.inmate.inmate.length !== 0 &&
-                                state.inmate.inmate.map((inmate, index) => {
-                                    return (
-                                        < tr key={index}>
-                                            <td>
-                                                <img src={inmate.img} alt='Inmate Pic'
+                            state.inmate.inmate.length !== 0 &&
+                            state.inmate.inmate.map((inmate, index) => {
+                                return (
+                                    <Card className='mt-5 w-100'>
+                                        <div className='d-flex flex-row align-items-center text-success text-center w-100'>
+                                            <div className='text-success text-center w-50' >
+                                                <img src={inmate.ipicurl} alt='Inmate Pic'
                                                     className='rounded-circle border'
-                                                    style={{ height: '100px', width: '100px' }} />
-                                            </td>
-                                            <td>{inmate.f_name} {inmate.m_name} {inmate.l_name}</td>
-                                            <td>{inmate.code}</td>
-                                            <td >
-                                                <Button
-                                                    onClick={() => dispatch(viewPageAction('profile', inmate))}
-                                                    className='ml-2 text-light bg-success font-weight-bold'>View
-                                                </Button>
-                                                {/* <Button
+                                                    style={{ height: '100px', width: '100px' }}
+                                                />
+                                                <label className='text-uppercase font-weight-bold ml-3 '>{inmate.f_name} {inmate.m_name} {inmate.l_name}</label>
+                                                <label className='text-uppercase font-weight-bold ml-3 '>{inmate.code}</label>
+                                            </div>
+                                            <div className=' d-flex flex-column text-success w-75 border text-left' >
 
-                                        onClick={() => dispatch(viewPageAction('generatePass'))}
-                                        className='ml-2 text-light bg-success font-weight-bold'>Generate Pass</Button> */}
+                                                <div className='d-flex w-100 text-success border-bottom'>
+                                                    <div className='w-25 '><label className='ml-3'> Gender:  </label> </div>
+                                                    <div> <label className='text-uppercase font-weight-bold ml-3 '>{inmate.gender}</label></div>
+                                                    <hr />
+                                                </div>
 
-                                            </td>
-                                        </tr>
-                                    )
-                                })
+                                                <div className='d-flex w-100 text-success border-bottom'>
+                                                    <div className='w-25 '><label className='ml-3'> D.O.B:  </label> </div>
+                                                    <div> <label className='text-uppercase font-weight-bold ml-3 '>{inmate.dob}</label></div>
+                                                    <hr />
+                                                </div>
+                                                <div className='d-flex w-100 text-success border-bottom'>
+                                                    <div className='w-25 '><label className='ml-3'> Phone:  </label>  </div>
+                                                    <div> <label className='text-uppercase font-weight-bold ml-3 '>+234 {inmate.phone}</label> </div>
+                                                </div>
+                                                <div className='d-flex w-100 text-success border-bottom'>
+                                                    <div className='w-25 '><label className='ml-3'> State: </label>  </div>
+                                                    <div> <label className=' text-uppercase font-weight-bold ml-3 '>{inmate.istate}</label> </div>
+                                                </div>
 
-                            }
-                        </tbody>
-                    </Table>
-                    :
-                    <div>
+                                                <div className='d-flex w-100 text-success'>
+                                                    <div className='w-25 '><label className='ml-3'> L.G.A:  </label>  </div>
+                                                    <div> <label className='text-uppercase font-weight-bold  ml-3 '>{inmate.ilga}</label> </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <Button
+                                            onClick={() => setEnterGuestInfor(true)}
+                                            className='ml-2 text-light bg-success font-weight-bold'>Visit
+                                        </Button>
+                                    </Card >
+                                )
+                            })
 
-                    </div>
-            }
-            <Card className='container mt-5 w-100 shadow-lg p-3 '>
+                            :
+                            <div>
 
-                <div className='d-flex justify-content-lg-center '>
-                    <h2 className='text-success font-weight-bold'>Visitor Information</h2>
+                            </div>
+                    }
+
                 </div>
 
-                <Form>
-                    <FormGroup>
-                        <Label for="fName">First Name</Label>
-                        <Input type="text" name="fName" value={profile.fName} onChange={handleChange} placeholder="First Name" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="lastName">Last Name</Label>
-                        <Input type="text" name="lName" value={profile.sName} onChange={handleChange} placeholder="Last Name" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="mName">Middle Name</Label>
-                        <Input type="text" name="mName" value={profile.mName} onChange={handleChange} placeholder="Middle Name" />
-                    </FormGroup>
 
-                    <FormGroup>
-                        <Label for="gender">Gender</Label>
-                        <Input type="select" name="gender" value={profile.gender} onChange={handleChange}>
-                            {['Male', 'Female'].map((gender, index) => (
-                                <option key={index} value={gender}> {gender}</option>
-                            ))
-                            }
-                        </Input>
-                    </FormGroup>
+            }
 
-                    <FormGroup>
-                        <Label for="phone">Phone</Label>
-                        <Input type="text" name="phone" value={profile.phone} onChange={handleChange} placeholder="080xxxxxxx" />
-                    </FormGroup>
+            {
+                EnterGuestInfor &&
 
+                <div>
+                    <Card className='container mt-5 w-100 shadow-lg p-3 '>
 
-                    <FormGroup className='d-flex flex-column'>
-                        <Label for="dob">Date of Birth</Label>
-                        <DatePicker className='w-100 border border-secondary rounded' style={{ height: '100px' }} selected={profile.dob} calendarClassName="rasta-stripes" onChange={date => { setProfile({ ...profile, dob: date }); }} />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="exampleSelect">State</Label>
-                        <Input type="select" name="inmate_loc_state" value={profile.inmate_loc_state} onChange={handleChange} >
-                            {NaijaStates.map((state, index) => (
-                                <option key={index} value={state}>{state}</option>
-                            ))
-                            }
-                        </Input>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="state">L.G.A</Label>
-                        <Input type="select" name="loc_lga" value={profile.loc_lga} onChange={handleChange}>
-                            {LGAs.map((lga, index) => (
-                                <option key={index} value={lga}> {lga}</option>
-                            ))
-                            }
-                        </Input>
-                    </FormGroup>
+                        <div className='d-flex justify-content-lg-center '>
+                            <h2 className='text-success font-weight-bold'>Visitor Information</h2>
+                        </div>
 
-                    <FormGroup>
-                        <Label for="homeAdd">Home Address</Label>
-                        <Input type="text" name="homeAdd" value={profile.homeAdd} onChange={handleChange} placeholder="Home Address" />
-                    </FormGroup>
+                        <Form>
+                            <FormGroup>
+                                <Label for="fName">First Name</Label>
+                                <Input type="text" name="fName" value={profile.fName} onChange={handleChange} placeholder="First Name" />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="lastName">Last Name</Label>
+                                <Input type="text" name="lName" value={profile.sName} onChange={handleChange} placeholder="Last Name" />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="mName">Middle Name</Label>
+                                <Input type="text" name="mName" value={profile.mName} onChange={handleChange} placeholder="Middle Name" />
+                            </FormGroup>
 
-                    <FormGroup>
-                        <Label for="emailAdd">Email Address</Label>
-                        <Input type="email" name="email" value={profile.emailAdd} onChange={handleChange} placeholder="email Address" />
-                    </FormGroup>
+                            <FormGroup>
+                                <Label for="gender">Gender</Label>
+                                <Input type="select" name="gender" value={profile.gender} onChange={handleChange}>
+                                    {['Male', 'Female'].map((gender, index) => (
+                                        <option key={index} value={gender}> {gender}</option>
+                                    ))
+                                    }
+                                </Input>
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="phone">Phone</Label>
+                                <Input type="text" name="phone" value={profile.phone} onChange={handleChange} placeholder="080xxxxxxx" />
+                            </FormGroup>
 
 
-                </Form>
+                            <FormGroup className='d-flex flex-column'>
+                                <Label for="dob">Date of Birth</Label>
+                                <DatePicker className='w-100 border border-secondary rounded' style={{ height: '100px' }} selected={profile.dob} calendarClassName="rasta-stripes" onChange={date => { setProfile({ ...profile, dob: date }); }} />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="exampleSelect">State</Label>
+                                <Input type="select" name="inmate_loc_state" value={profile.inmate_loc_state} onChange={handleChange} >
+                                    {NaijaStates.map((state, index) => (
+                                        <option key={index} value={state}>{state}</option>
+                                    ))
+                                    }
+                                </Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="state">L.G.A</Label>
+                                <Input type="select" name="loc_lga" value={profile.loc_lga} onChange={handleChange}>
+                                    {LGAs.map((lga, index) => (
+                                        <option key={index} value={lga}> {lga}</option>
+                                    ))
+                                    }
+                                </Input>
+                            </FormGroup>
 
-            </Card >
-            <div className='d-flex justify-content-lg-center '>
-                <Button color='success' className='font-weight-bold mt-3' onClick={onSubmit}>Generate Gate Pass</Button>
-            </div>
-            <div style={{ height: '20px' }}></div>
+                            <FormGroup>
+                                <Label for="homeAdd">Home Address</Label>
+                                <Input type="text" name="homeAdd" value={profile.homeAdd} onChange={handleChange} placeholder="Home Address" />
+                            </FormGroup>
+
+                            <FormGroup>
+                                <Label for="emailAdd">Email Address</Label>
+                                <Input type="email" name="email" value={profile.emailAdd} onChange={handleChange} placeholder="email Address" />
+                            </FormGroup>
+
+
+                        </Form>
+
+                    </Card >
+                    <div className='d-flex justify-content-lg-center '>
+                        <Button color='success' className='font-weight-bold mt-3' onClick={onSubmit}>Generate Gate Pass</Button>
+                    </div>
+                    <div style={{ height: '20px' }}></div>
+                </div>
+            }
+
 
 
         </div >
