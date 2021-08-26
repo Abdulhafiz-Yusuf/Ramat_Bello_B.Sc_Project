@@ -1,15 +1,158 @@
 import axios from 'axios';
 import { INMATE_SERVER } from '../../services/Config.json'
+import { storage } from '../../services/FirebaseConfig'
 
 // "proxy": "http://localhost:8000"
 
 
+
+
+export function firebaseImageUploadforNewInmate(dispatch, selectedFile, update, setUrl, setProgress, prevPicName, setPrevPicName) {
+    const uploadTask = storage.ref(`images/${selectedFile.name}`).put(selectedFile.file);
+    const actualUploading = () => {
+        uploadTask.on(
+            'state_changed', snapshot => {
+                const progress = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+                setProgress(progress);
+            },
+            error => {
+                console.log(error);
+            },
+            () => {
+                storage
+                    .ref('images')
+                    .child(selectedFile.name)
+                    .getDownloadURL()
+                    .then(url => {
+                        if (url) {
+                            setUrl(url)
+                            alert('Uploaded Successful')
+                        }
+                    })
+            }
+        )
+    }
+    if (prevPicName) {
+        let imageRef = storage.ref(`images/${prevPicName}`);
+        imageRef
+            .delete()
+            .then(() => {
+                setPrevPicName(selectedFile.name)
+                actualUploading(selectedFile)
+            })
+            .catch((e) => console.log('error on image deletion => ', e));
+    }
+
+    else {
+        setPrevPicName(selectedFile.name)
+        actualUploading(selectedFile)
+    }
+
+
+}
+
+
+
+export function firebaseImageUploadforPicUpdate(dispatch, selectedFile, setProgress, currentInmate) {
+
+    const uploadTask = storage.ref(`images/${selectedFile.name}`).put(selectedFile.file);
+
+    const actualUploading = (selectedFile) => {
+        uploadTask.on(
+            'state_changed', snapshot => {
+                const progress = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+                setProgress(progress);
+            },
+            error => {
+                console.log(error);
+            },
+            () => {
+                storage
+                    .ref('images')
+                    .child(selectedFile.name)
+                    .getDownloadURL()
+                    .then(newUrl => {
+                        if (newUrl) {
+                            let data = {
+                                inmate: currentInmate,
+                                url: newUrl,
+                                ipicname: selectedFile.name
+                            }
+                            axios.post(`${INMATE_SERVER}/updateiPic`, data)
+                                .then(response => {
+                                    if (response.data.success) {
+                                        dispatch({
+                                            type: 'SEARCH_INMATE',
+                                            payload: response.data
+                                        })
+                                        alert('Inmate Picture Successfully Changed. Thanks')
+                                        window.location = '/dashboard'
+                                    }
+                                })
+                                .catch(err => {
+                                    dispatch({
+                                        type: 'ERROR',
+                                        payload: err.message
+                                    })
+                                })
+                        }
+                    })
+            }
+        )
+    }
+
+    let imageRef = storage.ref(`images/${currentInmate.ipicname}`);
+    imageRef
+        .delete()
+        .then(() => {
+            actualUploading(selectedFile)
+
+        })
+        .catch((e) => console.log('error on image deletion => ', e));
+
+
+}
+
+//Inmate Registration using firebase image url
+export function RegisterInmate(dispatch, data) {
+    axios.post(`${INMATE_SERVER}/register`, data)
+        .then(response => {
+            if (response.data.inmateExistAlready) {
+                alert('Sorry Inmate with thesame "cell code" already Exist')
+            }
+            if (response.data.success) {
+                console.log(response.data.success)
+                // uploadImage(dispatch, formData, config, setImages, setInmatePicName)
+                alert('Inmate Registered Successfully. Thanks')
+                window.location = '/dashboard'
+                dispatch({
+                    type: 'SEARCH_INMATE',
+                    payload: response.data
+                })
+
+            }
+        })
+        .catch(err => {
+            dispatch({
+                type: 'ERROR',
+                payload: err.message
+            })
+        })
+
+}
+
+
+//Update Image using express.js
 export function updateInmatePic(dispatch, inmate, picName) {
     const data = {
         inmate: inmate,
         picName: picName,
     }
-    axios.post(`${INMATE_SERVER}/updateiPic`, data)
+    axios.post(`${INMATE_SERVER} / updateiPic`, data)
         .then(response => {
             if (response.data.success) {
                 dispatch({
@@ -29,9 +172,10 @@ export function updateInmatePic(dispatch, inmate, picName) {
 }
 
 
+//Uploading Image using express.js
 export function uploadImage(dispatch, formData, config, setImage, setInmatePicName, update, inmate) {
     console.log(formData)
-    axios.post(`${INMATE_SERVER}/uploadImage`, formData, config)
+    axios.post(`${INMATE_SERVER} / uploadImage`, formData, config)
         .then(response => {
             if (response.data.success) {
                 // setImages([...Images, response.data.image])
@@ -60,33 +204,6 @@ export function uploadImage(dispatch, formData, config, setImage, setInmatePicNa
 
 
 
-export function RegisterInmate(dispatch, data) {
-
-    axios.post(`${INMATE_SERVER}/register`, data)
-        .then(response => {
-            if (response.data.inmateExistAlready) {
-                alert('Sorry Inmate with thesame "cell code" already Exist')
-            }
-            if (response.data.success) {
-                console.log(response.data.success)
-                // uploadImage(dispatch, formData, config, setImages, setInmatePicName)
-                alert('Inmate Registered Successfully. Thanks')
-                window.location = '/dashboard'
-                dispatch({
-                    type: 'SEARCH_INMATE',
-                    payload: response.data
-                })
-
-            }
-        })
-        .catch(err => {
-            dispatch({
-                type: 'ERROR',
-                payload: err.message
-            })
-        })
-
-}
 
 export function searchInmateByCodeorName(dispatch, data) {
     axios.post(`${INMATE_SERVER}/searchinmate`, data)
@@ -105,8 +222,6 @@ export function searchInmateByCodeorName(dispatch, data) {
         })
 
 }
-
-
 
 
 
@@ -129,3 +244,33 @@ export function searchInmateByCodeorName(dispatch, data) {
 // }
 
 
+
+
+//REGISTRATION USING IMAGE UPLOADED USING EXPRESS.JS
+// export function RegisterInmate(dispatch, data) {
+
+//     axios.post(`${INMATE_SERVER} / register`, data)
+//         .then(response => {
+//             if (response.data.inmateExistAlready) {
+//                 alert('Sorry Inmate with thesame "cell code" already Exist')
+//             }
+//             if (response.data.success) {
+//                 console.log(response.data.success)
+//                 // uploadImage(dispatch, formData, config, setImages, setInmatePicName)
+//                 alert('Inmate Registered Successfully. Thanks')
+//                 window.location = '/dashboard'
+//                 dispatch({
+//                     type: 'SEARCH_INMATE',
+//                     payload: response.data
+//                 })
+
+//             }
+//         })
+//         .catch(err => {
+//             dispatch({
+//                 type: 'ERROR',
+//                 payload: err.message
+//             })
+//         })
+
+// }

@@ -6,7 +6,7 @@ import { globalStore } from '../../../ContextAPI/globalStore'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { RegisterInmate, uploadImage } from '../../../ContextAPI/actions/inmateActions';
+import { firebaseImageUpload, firebaseImageUploadforNewInmate, RegisterInmate, uploadImage } from '../../../ContextAPI/actions/inmateActions';
 
 import {
     NaijaStates, NaijaLGA
@@ -17,11 +17,20 @@ REGISTRATION COMPLETION PAGE
 =============================*/
 
 export default function RegInmate(props) {
-    let formData = new FormData();
+
     const { dispatch } = useContext(globalStore)
-    const [Image, setImage] = useState()
+
+
+    let formData = new FormData();
+
+    //Firebase file upload states
+    const [Url, setUrl] = useState()
+    const [progress, setProgress] = useState(0)
     const [selectedFile, setSelectedFile] = useState({ name: '', file: '' })
-    const [InmatePicName, setInmatePicName] = useState()
+    const [prevPicName, setPrevPicName] = useState()
+
+    const [Image, setImage] = useState()
+
     const [profile, setProfile] = useState({
         fName: '',
         lName: '',
@@ -54,7 +63,6 @@ export default function RegInmate(props) {
 
     const onSubmit = (e) => {
         e.preventDefault()
-
         const dataToSubmit = {
             fName: profile.fName,
             lName: profile.lName,
@@ -71,7 +79,8 @@ export default function RegInmate(props) {
             doi: profile.doi,
             dor: profile.dor,
             crime: profile.crime,
-            iPic: InmatePicName
+            iPicUrl: Url,
+            iPicName: selectedFile.name
         }
 
         if (
@@ -87,21 +96,26 @@ export default function RegInmate(props) {
         ) {
             alert('All fields are required, Field cannot be empty')
         }
+        else if (!Url) {
+            alert('Inmate Passport is required')
+        }
         else {
 
             RegisterInmate(dispatch, dataToSubmit)
 
         }
     }
-
+    console.log(Url)
     const onImageUpload = () => {
 
-        const config = {
-            header: { 'content-type': 'multipart/form-data' }
-        }
+        // const config = {
+        //     header: { 'content-type': 'multipart/form-data' }
+        // }
         formData.append("file", selectedFile.file)
         //save the Image we chose inside the Node Server 
-        uploadImage(dispatch, formData, config, setImage, setInmatePicName)
+        let update = false
+        firebaseImageUploadforNewInmate(dispatch, selectedFile, update, setUrl, setProgress, prevPicName, setPrevPicName)
+        // uploadImage(dispatch, formData, config, setImage, setInmatePicName)
     }
 
     const onfileSelect = (e) => {
@@ -122,19 +136,7 @@ export default function RegInmate(props) {
                     <h2 className='text-success font-weight-bold'>Register an Inmate</h2>
                 </div>
                 <Form>
-                    <Label for="fName">Inmate Passport</Label>
-                    <div class='d-flex'>
-                        <Input type="file" name="fName" onChange={onfileSelect} placeholder={selectedFile.name} />
-                        <Button color='success' className='font-weight-bold' onClick={onImageUpload}>Upload</Button>
-                    </div>
-                    {
-                        Image &&
-                        <img style={{ minWidth: '100px', width: '100px', height: '100px' }}
-                            src={selectedFile.img}
-                            // src={'http://localhost:8000/' + image}
-                            alt={'productImg' + Image}
-                        />
-                    }
+
                     <FormGroup>
                         <Label for="fName">First Name</Label>
                         <Input type="text" name="fName" value={profile.fName} onChange={handleChange} placeholder="First Name" />
@@ -222,11 +224,35 @@ export default function RegInmate(props) {
                         <Input type="textarea" name="crime" value={profile.natureOfCrime} onChange={handleChange} placeholder="Nature of crime" />
                     </FormGroup>
 
+                    <Label for="fName">Inmate Passport</Label>
+                    <div className='d-flex'>
+                        <Input type="file" name="fName" onChange={onfileSelect} placeholder={selectedFile.name} />
+                        <Button color='success' className='font-weight-bold' onClick={onImageUpload}>Upload</Button>
+                    </div>
+                    {
+                        selectedFile.file &&
+                        <div>
+                            <progress value={progress} max='100' />
+                            <br />
+                            <br />
+                            <img style={{ minWidth: '100px', width: '100px', height: '100px' }}
+                                src={selectedFile.img}
+                                // src={'http://localhost:8000/' + image}
+                                alt={'productImg' + selectedFile.name}
+                            />
+
+                        </div>
+
+                    }
+
+
+
                     <div className='d-flex justify-content-lg-center '>
                         <Button color='success' className='font-weight-bold' onClick={onSubmit}>Submit</Button>
                     </div>
 
                 </Form>
+
 
             </Card >
             <div style={{ height: '20px' }}></div>

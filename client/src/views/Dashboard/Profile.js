@@ -16,10 +16,11 @@ function Profile() {
 
             <Card className='w-100 d-flex mt-2 flex-column justify-content-center align-items-center'>
                 {
-                    inmate.ipic ?
+                    inmate.ipicurl ?
                         <div className=''>
                             <img style={{ minWidth: '100px', width: '100px', height: '100px' }}
-                                src={require(`../../assets/uploads/${inmate.ipic}`).default}
+                                // src={require(`../../assets/uploads/${inmate.ipic}`).default}
+                                src={inmate.ipicurl}
                                 alt={'productImg'}
                                 className='rounded-circle border mt-2 mr-1'
                             />

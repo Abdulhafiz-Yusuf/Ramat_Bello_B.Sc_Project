@@ -49,7 +49,8 @@ exports.registerInmate = (req, res, next) => {
         req.body.doi,
         req.body.dor,
         req.body.code,
-        req.body.iPic,
+        req.body.iPicUrl,
+        req.body.iPicName
     ]
     const code = req.body.code
 
@@ -61,8 +62,8 @@ exports.registerInmate = (req, res, next) => {
             }
             else {
                 // if Inmate does not exist before save to database
-                db.query(`INSERT INTO inmate(f_name, l_name,m_name, dob, gender, phone, email, hAddress, iLga, iState, crime,cCenter, doi,  dor,  code, ipic, postdate)
-                        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11, $12, $13, $14, $15,$16, NOW())
+                db.query(`INSERT INTO inmate(f_name, l_name,m_name, dob, gender, phone, email, hAddress, iLga, iState, crime,cCenter, doi,  dor,  code, ipicurl,ipicname, postdate)
+                        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11, $12, $13, $14, $15,$16, $17,NOW())
                         ON CONFLICT DO NOTHING`, values)
                     .then(q_res => {
                         if (q_res) {
@@ -117,7 +118,7 @@ exports.searchInmateByNameorCode = async (req, res, next) => {
     const searchText = req.body.searchText
 
     db.query(`SELECT * FROM inmate
-                  WHERE f_name =$1 OR l_name=$1 OR m_name=$1 OR code=$1`, [searchText])
+                  WHERE f_name ~* '${searchText}' OR l_name ~* '${searchText}' OR m_name ~* '${searchText}' OR code ~* '%@${searchText}'`)
         .then(q_res => {
             res.status(200).send({
                 success: true,
@@ -179,11 +180,13 @@ exports.updateInmatePic = (req, res) => {
     console.log('Testing Body')
     console.log(req.body)
 
-    const pic = req.body.picName
+    const ipicurl = req.body.url
+    const ipicname = req.body.ipicname
     const code = req.body.inmate.code
 
+
     db.query(`UPDATE inmate
-              SET ipic = '${pic}'
+              SET ipicurl = '${ipicurl}', ipicname='${ipicname}'
               WHERE code = '${code}'`)
         .then((q_res) => {
             return res.status(200).send({ success: true })

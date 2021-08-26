@@ -25,7 +25,8 @@ CREATE TABLE inmate (
   doi DATE,
   dor DATE,
   code VARCHAR(255) UNIQUE,
-  ipic VARCHAR(255),
+  ipic VARCHAR(350),
+  ipicname VARCHAR(255),
   postdate TIMESTAMP --created Date
 );
 
