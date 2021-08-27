@@ -15,3 +15,4 @@ export const VIEWPAGE = 'VIEWPAGE'
 export const ERROR = 'ERROR'
 
 export const SEARCH_INMATE = 'SEARCH_INMATE'
+export const READ_ALL_INMATE = 'READ_ALL_INMATE'

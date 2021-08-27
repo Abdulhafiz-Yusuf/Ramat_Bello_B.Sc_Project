@@ -17,9 +17,10 @@ exports.readAllinmate = (req, res,) => {
     console.log('You read all inmate')
     db.query(`SELECT * FROM inmate ORDER BY iId ASC`)
         .then(result => {
-            // Send books extracted from database in response
+            // Send inmate extracted from database in response
             console.log(result.rows)
-            res.status(200).send({ inmate: result.rows })
+            res.status(200).json({ inmate: result.rows })
+            // res.json(result.rows)
         })
         .catch(q_err => {
             console.log({ Error: q_err.message })

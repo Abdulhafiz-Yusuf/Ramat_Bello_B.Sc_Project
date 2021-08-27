@@ -5,8 +5,6 @@ import { storage } from '../../services/FirebaseConfig'
 // "proxy": "http://localhost:8000"
 
 
-
-
 export function firebaseImageUploadforNewInmate(dispatch, selectedFile, update, setUrl, setProgress, prevPicName, setPrevPicName) {
     const uploadTask = storage.ref(`images/${selectedFile.name}`).put(selectedFile.file);
     const actualUploading = () => {
@@ -52,8 +50,6 @@ export function firebaseImageUploadforNewInmate(dispatch, selectedFile, update, 
 
 
 }
-
-
 
 export function firebaseImageUploadforPicUpdate(dispatch, selectedFile, setProgress, currentInmate) {
 
@@ -146,6 +142,34 @@ export function RegisterInmate(dispatch, data) {
 }
 
 
+export function RegVisitor(dispatch, data) {
+    axios.post(`${INMATE_SERVER}/register`, data)
+        .then(response => {
+            if (response.data.inmateExistAlready) {
+                alert('Sorry Inmate with thesame "cell code" already Exist')
+            }
+            if (response.data.success) {
+                console.log(response.data.success)
+                // uploadImage(dispatch, formData, config, setImages, setInmatePicName)
+                alert('Inmate Registered Successfully. Thanks')
+                window.location = '/dashboard'
+                dispatch({
+                    type: 'SEARCH_INMATE',
+                    payload: response.data
+                })
+
+            }
+        })
+        .catch(err => {
+            dispatch({
+                type: 'ERROR',
+                payload: err.message
+            })
+        })
+
+}
+
+
 //Update Image using express.js
 export function updateInmatePic(dispatch, inmate, picName) {
     const data = {
@@ -170,7 +194,6 @@ export function updateInmatePic(dispatch, inmate, picName) {
             })
         })
 }
-
 
 //Uploading Image using express.js
 export function uploadImage(dispatch, formData, config, setImage, setInmatePicName, update, inmate) {
@@ -202,9 +225,6 @@ export function uploadImage(dispatch, formData, config, setImage, setInmatePicNa
         })
 }
 
-
-
-
 export function searchInmateByCodeorName(dispatch, data) {
     axios.post(`${INMATE_SERVER}/searchinmate`, data)
         .then(response => {
@@ -224,6 +244,25 @@ export function searchInmateByCodeorName(dispatch, data) {
 }
 
 
+export function fetchAllInmate(dispatch) {
+    axios.post(`${INMATE_SERVER}/readAll`)
+        .then(response => {
+            console.log(response)
+            if (response.data)
+                dispatch({
+                    type: 'READ_ALL_INMATE',
+                    payload: response.data
+                })
+        })
+        .catch(err => {
+            dispatch({
+                type: 'ERROR',
+                payload: err.message
+            })
+        })
+
+}
+
 
 // export async function fetchBloodbyId(bgId) {
 //     const request = await axios.get(`${ BLOODCENTER_SERVER } / blood_by_id ? id = ${ bgId }`)
@@ -242,8 +281,6 @@ export function searchInmateByCodeorName(dispatch, data) {
 //         })
 //     return request
 // }
-
-
 
 
 //REGISTRATION USING IMAGE UPLOADED USING EXPRESS.JS

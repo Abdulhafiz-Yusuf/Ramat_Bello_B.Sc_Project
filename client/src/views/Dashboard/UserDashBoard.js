@@ -1,5 +1,5 @@
 // src/views/profile.js
-import React, { useContext, } from "react";
+import React, { useEffect, useContext, } from "react";
 import RegisterInmate from "./Immate/RegInmate";
 import SearchImmate from "./Immate/SearchImmate";
 import GeneratePass from './Guest/GeneratePass'
@@ -9,6 +9,7 @@ import { globalStore } from '../../ContextAPI/globalStore'
 import Profile from "./Profile";
 import VisitHistory from "./Immate/VisitHistory";
 import UploadInmatePic from "./Immate/UploadInmatePic";
+import { fetchAllInmate } from "../../ContextAPI/actions/inmateActions";
 
 /*
 =========================
@@ -38,7 +39,7 @@ export default function UserDashBoard() {
 
 
 
-    const { state } = useContext(globalStore)
+    const { state, dispatch } = useContext(globalStore)
     const stateViewPage = state.ViewPage
     const stateUser = {
         uid: 123,
@@ -48,7 +49,10 @@ export default function UserDashBoard() {
     //state.UserPage
 
     console.log(state)
+    useEffect(() => {
+        fetchAllInmate(dispatch)
 
+    }, [])
     return (
         <div className='mt-5 container'>
             <div style={{ height: '100px' }}></div>

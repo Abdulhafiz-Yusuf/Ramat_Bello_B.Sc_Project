@@ -87,8 +87,6 @@ export const singUp = (dispatch, fullName, email, password, section, setError, s
         });
 }
 
-
-
 export function fetchCurrentUser(dispatch, setuser) {
     Firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -104,7 +102,6 @@ export function fetchCurrentUser(dispatch, setuser) {
         }
     });
 }
-
 
 export function viewPageAction(page, inmate) {
     return (

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Card, Table, Label, Button, Form, FormGroup, Input } from 'reactstrap';
 import { globalStore } from '../../../ContextAPI/globalStore'
 import { viewPageAction } from '../../../ContextAPI/actions/UserActions'
-import { searchInmateByCodeorName } from '../../../ContextAPI/actions/inmateActions';
+import { RegVisitor, searchInmateByCodeorName } from '../../../ContextAPI/actions/inmateActions';
 import { NaijaStates, NaijaLGA } from '../Immate/stateLGAData';
 //DATEPICKER AND ITS CSS
 import DatePicker from "react-datepicker";
@@ -28,16 +28,12 @@ function SearchImmate() {
         mName: '',
         gender: '',
         phone: '',
-        dob: new Date(),
-        inmate_loc_state: 'Abia',
-        loc_lga: NaijaLGA['Abia'][0],
         homeAdd: '',
-        email: '',
-        cCenter: '',
-        code: '',
-        doi: new Date(),
-        dor: new Date(),
-        crime: ''
+        // dob: new Date(),
+        // inmate_loc_state: 'Abia',
+        // loc_lga: NaijaLGA['Abia'][0],
+        // email: '',
+
 
     })
     let LGAs = NaijaLGA[profile.inmate_loc_state]
@@ -71,8 +67,38 @@ function SearchImmate() {
         console.log(value)
     }
 
-    const onSubmit = () => {
+    const regVisitor = (e) => {
+        e.preventDefault()
+        const dataToSubmit = {
+            fName: profile.fName,
+            lName: profile.lName,
+            mName: profile.mName,
+            gender: profile.gender,
+            phone: profile.phone,
+            homeAdd: profile.homeAdd,
+            iPicUrl: Url,
+            iPicName: selectedFile.name
+            // dob: profile.dob,
+            // inmate_loc_state: profile.inmate_loc_state,
+            // loc_lga: profile.loc_lga,
 
+        }
+
+        if (
+            dataToSubmit.fName === '' ||
+            dataToSubmit.lName === '' ||
+            dataToSubmit.mName === '' ||
+            dataToSubmit.phone === '' ||
+            dataToSubmit.homeAdd === ''
+        ) {
+            alert('All fields are required, Field cannot be empty')
+        }
+        else if (!Url) {
+            alert('Inmate Passport is required')
+        }
+        else {
+            RegVisitor(dispatch, dataToSubmit)
+        }
     }
 
     return (
@@ -143,7 +169,7 @@ function SearchImmate() {
                                         </div>
                                         <Button
                                             onClick={() => setEnterGuestInfor(true)}
-                                            className='ml-2 text-light bg-success font-weight-bold'>Visit
+                                            className='ml-2 text-light bg-success font-weight-bold'>Generate Visitor Gate-Pass
                                         </Button>
                                     </Card >
                                 )
@@ -164,7 +190,7 @@ function SearchImmate() {
                 EnterGuestInfor &&
 
                 <div>
-                    <Card className='container mt-5 w-100 shadow-lg p-3 '>
+                    <Card className='container mt-2 w-100 shadow-lg p-3 '>
 
                         <div className='d-flex justify-content-lg-center '>
                             <h2 className='text-success font-weight-bold'>Visitor Information</h2>
@@ -172,7 +198,7 @@ function SearchImmate() {
 
                         <Form>
                             <FormGroup>
-                                <Label for="fName">First Name</Label>
+                                <Label for="fName">First Name:</Label>
                                 <Input type="text" name="fName" value={profile.fName} onChange={handleChange} placeholder="First Name" />
                             </FormGroup>
                             <FormGroup>
@@ -200,11 +226,11 @@ function SearchImmate() {
                             </FormGroup>
 
 
-                            <FormGroup className='d-flex flex-column'>
+                            {/* <FormGroup className='d-flex flex-column'>
                                 <Label for="dob">Date of Birth</Label>
                                 <DatePicker className='w-100 border border-secondary rounded' style={{ height: '100px' }} selected={profile.dob} calendarClassName="rasta-stripes" onChange={date => { setProfile({ ...profile, dob: date }); }} />
-                            </FormGroup>
-                            <FormGroup>
+                            </FormGroup> */}
+                            {/* <FormGroup>
                                 <Label for="exampleSelect">State</Label>
                                 <Input type="select" name="inmate_loc_state" value={profile.inmate_loc_state} onChange={handleChange} >
                                     {NaijaStates.map((state, index) => (
@@ -221,24 +247,25 @@ function SearchImmate() {
                                     ))
                                     }
                                 </Input>
-                            </FormGroup>
+                            </FormGroup> */}
 
                             <FormGroup>
                                 <Label for="homeAdd">Home Address</Label>
                                 <Input type="text" name="homeAdd" value={profile.homeAdd} onChange={handleChange} placeholder="Home Address" />
                             </FormGroup>
 
-                            <FormGroup>
+                            {/* <FormGroup>
                                 <Label for="emailAdd">Email Address</Label>
                                 <Input type="email" name="email" value={profile.emailAdd} onChange={handleChange} placeholder="email Address" />
-                            </FormGroup>
+                            </FormGroup> */}
 
 
                         </Form>
 
                     </Card >
                     <div className='d-flex justify-content-lg-center '>
-                        <Button color='success' className='font-weight-bold mt-3' onClick={onSubmit}>Generate Gate Pass</Button>
+                        <Button color='success' className='font-weight-bold mt-3' onClick={regVisitor}>Generate Gate Pass</Button>
+
                     </div>
                     <div style={{ height: '20px' }}></div>
                 </div>

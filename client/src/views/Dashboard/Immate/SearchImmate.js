@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Table, Button, Form, FormGroup, Input } from 'reactstrap';
 import { globalStore } from '../../../ContextAPI/globalStore'
 import { viewPageAction } from '../../../ContextAPI/actions/UserActions'
-import { searchInmateByCodeorName } from '../../../ContextAPI/actions/inmateActions';
+import { fetchAllInmate, searchInmateByCodeorName } from '../../../ContextAPI/actions/inmateActions';
 
 
 function SearchImmate() {
@@ -10,7 +10,7 @@ function SearchImmate() {
     // const [SearchType, setSearchType] = useState('1')
 
     const { state, dispatch } = useContext(globalStore)
-
+    // const [Inmate, setInmate] = useState()
 
     const onSearchTextChange = (e) => {
         const value = e.target.value
