@@ -6,7 +6,7 @@ import { globalStore } from '../../../ContextAPI/globalStore'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { firebaseImageUpload, firebaseImageUploadforNewInmate, RegisterInmate, uploadImage } from '../../../ContextAPI/actions/inmateActions';
+import { firebaseImageUploadforNewInmate, RegisterInmate } from '../../../ContextAPI/actions/inmateActions';
 
 import {
     NaijaStates, NaijaLGA
@@ -28,8 +28,6 @@ export default function RegInmate(props) {
     const [progress, setProgress] = useState(0)
     const [selectedFile, setSelectedFile] = useState({ name: '', file: '' })
     const [prevPicName, setPrevPicName] = useState()
-
-    const [Image, setImage] = useState()
 
     const [profile, setProfile] = useState({
         fName: '',
@@ -106,6 +104,7 @@ export default function RegInmate(props) {
         }
     }
     console.log(Url)
+
     const onImageUpload = () => {
 
         // const config = {
@@ -114,7 +113,7 @@ export default function RegInmate(props) {
         formData.append("file", selectedFile.file)
         //save the Image we chose inside the Node Server 
         let update = false
-        firebaseImageUploadforNewInmate(dispatch, selectedFile, update, setUrl, setProgress, prevPicName, setPrevPicName)
+        firebaseImageUploadforNewInmate(dispatch, selectedFile, setUrl, setProgress, prevPicName, setPrevPicName)
         // uploadImage(dispatch, formData, config, setImage, setInmatePicName)
     }
 
@@ -224,11 +223,14 @@ export default function RegInmate(props) {
                         <Input type="textarea" name="crime" value={profile.natureOfCrime} onChange={handleChange} placeholder="Nature of crime" />
                     </FormGroup>
 
+                    {/* Inmate Pic upload starts here */}
+
                     <Label for="fName">Inmate Passport</Label>
                     <div className='d-flex'>
                         <Input type="file" name="fName" onChange={onfileSelect} placeholder={selectedFile.name} />
                         <Button color='success' className='font-weight-bold' onClick={onImageUpload}>Upload</Button>
                     </div>
+
                     {
                         selectedFile.file &&
                         <div>

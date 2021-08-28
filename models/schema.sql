@@ -45,13 +45,11 @@ CREATE TABLE visitor(
   f_name VARCHAR(255),
   l_name VARCHAR(255),
   m_name VARCHAR(255),
-  dob DATE, --created Date
   gender VARCHAR(255),
   phone BIGINT,
-  email VARCHAR(255) UNIQUE,
-  hAddress VARCHAR(255) ,
-  vLga VARCHAR(255),
-  vState VARCHAR(255),
+  hAddress VARCHAR(255),
+  vpicurl VARCHAR(255),
+  vpicname VARCHAR(255),
   postdate TIMESTAMP --created Date
 );
 

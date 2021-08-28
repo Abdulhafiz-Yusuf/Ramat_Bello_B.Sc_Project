@@ -11,7 +11,7 @@ router.post('/searchinmate', inmate.searchInmateByNameorCode);
 router.post('/register', inmate.registerInmate);
 router.post("/uploadImage", inmate.ImageUpload);
 router.post('/updateiPic', inmate.updateInmatePic);
-
+router.post('/regVisitor', inmate.registerGuest);
 
 
 module.exports = router

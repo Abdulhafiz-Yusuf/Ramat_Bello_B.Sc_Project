@@ -10,6 +10,8 @@ import Profile from "./Profile";
 import VisitHistory from "./Immate/VisitHistory";
 import UploadInmatePic from "./Immate/UploadInmatePic";
 import { fetchAllInmate } from "../../ContextAPI/actions/inmateActions";
+import Gatepass from "./Guest/Gatepass";
+import PrintPass from "../../components/printPass";
 
 /*
 =========================
@@ -87,7 +89,10 @@ export default function UserDashBoard() {
                                             stateViewPage === 'uploadImage' ?
                                                 <UploadInmatePic />
                                                 :
-                                                < SearchImmate />
+                                                stateViewPage === 'gatepass' ?
+                                                    <PrintPass />
+                                                    :
+                                                    < SearchImmate />
 
                         }
                     </div >

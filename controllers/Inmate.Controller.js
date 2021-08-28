@@ -30,9 +30,7 @@ exports.readAllinmate = (req, res,) => {
 
 
 
-/**
- * REGISTERING INMATE AND UPLOAD OF INMATE PIC
- */
+// REGISTERING INMATE WITH INMATE PIC URL AD INMATE PIC NAME
 exports.registerInmate = (req, res, next) => {
     const values = [
         req.body.fName,
@@ -82,10 +80,49 @@ exports.registerInmate = (req, res, next) => {
             console.log({ Error: q_err.message })
             res.status(500).send({ Error: q_err.message }) //DB ERROR
         })
+}
 
+// REGISTERING GUEST WITH GUEST PIC URL AD GUEST PIC NAME
+exports.registerGuest = (req, res, next) => {
+    const values = [
+        req.body.fName,
+        req.body.lName,
+        req.body.mName,
+        req.body.gender,
+        req.body.phone,
+        req.body.homeAdd,
+        req.body.vPicUrl,
+        req.body.vPicName
+    ]
+    const phone = req.body.phone
 
-
-
+    // Check if inmate exist in database 
+    db.query(`SELECT * FROM visitor WHERE phone=$1`, [phone])
+        .then(q_res => {
+            if (q_res.rows.length !== 0) {
+                res.status(200).send({ VisitorExistAlready: true, visitor: q_res.rows })//USER FULL INFO 
+            }
+            else {
+                // if Inmate does not exist before save to database
+                db.query(`INSERT INTO visitor(f_name, l_name,m_name, gender, phone, hAddress, vpicurl,vpicname, postdate)
+                        VALUES($1, $2, $3, $4, $5, $6, $7, $8, NOW())
+                        ON CONFLICT DO NOTHING`, values)
+                    .then(q_res => {
+                        if (q_res) {
+                            res.status(200).send({ success: true, inmate: q_res.rows })//USER FULL INFO 
+                            console.log({ Registered: q_res })
+                        }
+                    })
+                    .catch(q_err => {
+                        console.log({ Error: q_err.message })
+                        res.status(500).send({ Error: q_err.message }) //DB ERROR
+                    })
+            }
+        })
+        .catch(q_err => {
+            console.log({ Error: q_err.message })
+            res.status(500).send({ Error: q_err.message }) //DB ERROR
+        })
 }
 exports.readinmateByID = (req, res, next) => {
     const id = req.query.id;

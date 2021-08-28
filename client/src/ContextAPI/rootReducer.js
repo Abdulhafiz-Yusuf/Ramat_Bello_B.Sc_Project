@@ -1,5 +1,5 @@
 // define types
-import { READ_ALL_INMATE, LOGIN, VIEWPAGE, SIGNUP, GET_CURRENT_USER, FETCH_RESULT_DATA, ERROR, SEARCH_INMATE } from './types'
+import { READ_ALL_INMATE, GATEPASS, LOGIN, VIEWPAGE, SIGNUP, GET_CURRENT_USER, FETCH_RESULT_DATA, ERROR, SEARCH_INMATE } from './types'
 
 
 import { initialState } from './globalStore'
@@ -27,6 +27,8 @@ export default function rootReducer(state = initialState, action) {
 			return { ...state, error: action.payload }
 		case SEARCH_INMATE:
 			return { ...state, inmate: action.payload }
+		case GATEPASS:
+			return { ...state, currentInmate: action.payload.currentInmate, style: action.payload.style, visitor: action.payload.visitor, ViewPage: action.payload.ViewPage }
 		default:
 			return state
 	}

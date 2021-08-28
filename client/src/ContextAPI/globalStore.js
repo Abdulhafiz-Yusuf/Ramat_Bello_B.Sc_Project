@@ -6,6 +6,8 @@ export const initialState = {
     error: null,
     ViewPage: null,
 
+
+
 }
 
 export const globalStore = createContext(initialState);

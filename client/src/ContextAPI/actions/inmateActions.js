@@ -5,7 +5,56 @@ import { storage } from '../../services/FirebaseConfig'
 // "proxy": "http://localhost:8000"
 
 
-export function firebaseImageUploadforNewInmate(dispatch, selectedFile, update, setUrl, setProgress, prevPicName, setPrevPicName) {
+
+export function firebaseImageUploadforNewVisitor(dispatch, selectedFile, setUrl, setProgress, prevPicName, setPrevPicName) {
+    const uploadTask = storage.ref(`visitors/${selectedFile.name}`).put(selectedFile.file);
+    const actualUploading = () => {
+        uploadTask.on(
+            'state_changed', snapshot => {
+                const progress = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+                setProgress(progress);
+            },
+            error => {
+                console.log(error);
+            },
+            () => {
+                storage
+                    .ref('visitors')
+                    .child(selectedFile.name)
+                    .getDownloadURL()
+                    .then(url => {
+                        if (url) {
+                            setUrl(url)
+                            alert('Uploaded Successful')
+                        }
+                    })
+            }
+        )
+    }
+    if (prevPicName) {
+        let imageRef = storage.ref(`images/${prevPicName}`);
+        imageRef
+            .delete()
+            .then(() => {
+                setPrevPicName(selectedFile.name)
+                actualUploading(selectedFile)
+            })
+            .catch((e) => console.log('error on image deletion => ', e));
+    }
+
+    else {
+        setPrevPicName(selectedFile.name)
+        actualUploading(selectedFile)
+    }
+
+
+}
+
+
+
+export function firebaseImageUploadforNewInmate(dispatch, selectedFile, setUrl, setProgress, prevPicName, setPrevPicName) {
     const uploadTask = storage.ref(`images/${selectedFile.name}`).put(selectedFile.file);
     const actualUploading = () => {
         uploadTask.on(
@@ -142,20 +191,24 @@ export function RegisterInmate(dispatch, data) {
 }
 
 
-export function RegVisitor(dispatch, data) {
-    axios.post(`${INMATE_SERVER}/register`, data)
+export function RegVisitor(dispatch, data, currentInmate) {
+    console.log(currentInmate)
+
+    axios.post(`${INMATE_SERVER}/regVisitor`, data)
         .then(response => {
-            if (response.data.inmateExistAlready) {
-                alert('Sorry Inmate with thesame "cell code" already Exist')
+            if (response.data.VisitorExistAlready) {
+                alert('Sorry Visitor with thesame "Phone Number" already Exist')
             }
             if (response.data.success) {
                 console.log(response.data.success)
-                // uploadImage(dispatch, formData, config, setImages, setInmatePicName)
-                alert('Inmate Registered Successfully. Thanks')
-                window.location = '/dashboard'
                 dispatch({
-                    type: 'SEARCH_INMATE',
-                    payload: response.data
+                    type: 'GATEPASS',
+                    payload: {
+                        visitor: response.data,
+                        style: { display: 'none' },
+                        currentInmate: currentInmate,
+                        ViewPage: 'gatepass'
+                    }
                 })
 
             }

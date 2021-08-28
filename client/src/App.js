@@ -18,6 +18,8 @@ import UserDashBoard from './views/Dashboard/UserDashBoard';
 import Login from './views/Login';
 import Firebase from './services/FirebaseConfig';
 import LoadScreen from './components/LoadScreen';
+import Gatepass from './views/Dashboard/Guest/Gatepass';
+import PrintPass from './components/printPass';
 
 
 /*=====
@@ -76,6 +78,7 @@ export default function App() {
           <Route path="/login" exact component={Login} />
           <Route path="/about" exact component={About} />
           <Route path="/dashboard" exact component={UserDashBoard} />
+          <Route path="/gatepass" exact component={PrintPass} />
         </Switch>
         <Footer />
       </Router >

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { Card, Table, Label, Button, Form, FormGroup, Input } from 'reactstrap';
 import { globalStore } from '../../../ContextAPI/globalStore'
 import { viewPageAction } from '../../../ContextAPI/actions/UserActions'
-import { RegVisitor, searchInmateByCodeorName } from '../../../ContextAPI/actions/inmateActions';
+import { firebaseImageUploadforNewInmate, RegVisitor, searchInmateByCodeorName } from '../../../ContextAPI/actions/inmateActions';
 import { NaijaStates, NaijaLGA } from '../Immate/stateLGAData';
 //DATEPICKER AND ITS CSS
 import DatePicker from "react-datepicker";
@@ -10,11 +10,11 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 function SearchImmate() {
-    useEffect(() => {
-
-        setEnterGuestInfor(false)
-    }, [])
-
+    //Firebase file upload states
+    const [Url, setUrl] = useState()
+    const [progress, setProgress] = useState(0)
+    const [selectedFile, setSelectedFile] = useState({ name: '', file: '' })
+    const [prevPicName, setPrevPicName] = useState()
 
     const [searchText, setsearchText] = useState()
     const [EnterGuestInfor, setEnterGuestInfor] = useState(false)
@@ -38,6 +38,13 @@ function SearchImmate() {
     })
     let LGAs = NaijaLGA[profile.inmate_loc_state]
 
+
+
+    useEffect(() => {
+
+        setEnterGuestInfor(false)
+    }, [])
+
     const onSearchTextChange = (e) => {
         const value = e.target.value
         setsearchText(value)
@@ -58,7 +65,7 @@ function SearchImmate() {
         }
     }
 
-    const handleChange = (e) => {
+    const handleChange = (e,) => {
         const value = e.target.value
         setProfile({
             ...profile,
@@ -69,6 +76,7 @@ function SearchImmate() {
 
     const regVisitor = (e) => {
         e.preventDefault()
+
         const dataToSubmit = {
             fName: profile.fName,
             lName: profile.lName,
@@ -76,12 +84,11 @@ function SearchImmate() {
             gender: profile.gender,
             phone: profile.phone,
             homeAdd: profile.homeAdd,
-            iPicUrl: Url,
-            iPicName: selectedFile.name
+            vPicUrl: Url,
+            vPicName: selectedFile.name
             // dob: profile.dob,
             // inmate_loc_state: profile.inmate_loc_state,
             // loc_lga: profile.loc_lga,
-
         }
 
         if (
@@ -97,8 +104,25 @@ function SearchImmate() {
             alert('Inmate Passport is required')
         }
         else {
-            RegVisitor(dispatch, dataToSubmit)
+            RegVisitor(dispatch, dataToSubmit, EnterGuestInfor.inmate)
         }
+    }
+
+
+    const onImageUpload = () => {
+
+        firebaseImageUploadforNewInmate(dispatch, selectedFile, setUrl, setProgress, prevPicName, setPrevPicName)
+        // uploadImage(dispatch, formData, config, setImage, setInmatePicName)
+    }
+
+    const onfileSelect = (e) => {
+        e.preventDefault()
+        setSelectedFile({
+            name: e.target.files[0].name,
+            file: e.target.files[0],
+            img: URL.createObjectURL(e.target.files[0])
+        })
+
     }
 
     return (
@@ -168,7 +192,7 @@ function SearchImmate() {
                                             </div>
                                         </div>
                                         <Button
-                                            onClick={() => setEnterGuestInfor(true)}
+                                            onClick={() => setEnterGuestInfor({ displayVInfo: true, inmate: inmate, })}
                                             className='ml-2 text-light bg-success font-weight-bold'>Generate Visitor Gate-Pass
                                         </Button>
                                     </Card >
@@ -187,7 +211,7 @@ function SearchImmate() {
             }
 
             {
-                EnterGuestInfor &&
+                EnterGuestInfor.displayVInfo &&
 
                 <div>
                     <Card className='container mt-2 w-100 shadow-lg p-3 '>
@@ -253,6 +277,35 @@ function SearchImmate() {
                                 <Label for="homeAdd">Home Address</Label>
                                 <Input type="text" name="homeAdd" value={profile.homeAdd} onChange={handleChange} placeholder="Home Address" />
                             </FormGroup>
+
+
+
+                            {/* Inmate Pic upload starts here */}
+
+                            <Label for="fName">Visitor's Passport</Label>
+                            <div className='d-flex'>
+                                <Input type="file" name="fName" onChange={onfileSelect} placeholder={selectedFile.name} />
+                                <Button color='success' className='font-weight-bold' onClick={onImageUpload}>Upload</Button>
+                            </div>
+
+                            {
+                                selectedFile.file &&
+                                <div>
+                                    <progress value={progress} max='100' />
+                                    <br />
+                                    <br />
+                                    <img style={{ minWidth: '100px', width: '100px', height: '100px' }}
+                                        src={selectedFile.img}
+                                        // src={'http://localhost:8000/' + image}
+                                        alt={'productImg' + selectedFile.name}
+                                    />
+
+                                </div>
+
+                            }
+
+
+
 
                             {/* <FormGroup>
                                 <Label for="emailAdd">Email Address</Label>
