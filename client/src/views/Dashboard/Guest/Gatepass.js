@@ -16,7 +16,7 @@ function Gatepass() {
         haddress: 'Toungo, Adamawa State',
         vlga: 'Adamawa',
         vstate: 'Gayuk',
-        vpicurl: 'https://firebasestorage.googleapis.com/v0/b/ramatbelloproject.appspot.com/o/images%2FEVAGELINE%20PASSPORT.jpg?alt=media&token=2eca7eb8-645b-4277-87e2-66235133f094',
+        vpicurl: 'https://firebasestorage.googleapis.com/v0/b/ramatbelloproject.appspot.com/o/images%2Fdownload%20(1).jpeg?alt=media&token=25d9cf7c-42fb-4a16-986d-bd2ef021499b',
         postdate: '2021 - 08 - 27T16: 11: 30.066Z',
         vpicname: 'EVAGELINE PASSPORT.jpg'
     }
